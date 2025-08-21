@@ -1,7 +1,7 @@
 import store from 'redux'
 
 
-export const ADD_TOY = 'ADD_TOY'
+export const SET_TOYS = 'SET_TOYS'
 
 const initialState = {
     toys: [],
@@ -11,8 +11,8 @@ const initialState = {
 
 export function AppReducer(state = initialState, cmd = {}) {
     switch (cmd.type) {
-        case 'ADD_TOY':
-            return { ...state, toys: [...state.toys, cmd.toy] }
+        case 'SET_TOYS':
+            return { ...state, toys: cmd.toys }
         default:
             return state
     }
