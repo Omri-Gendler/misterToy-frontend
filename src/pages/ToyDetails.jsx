@@ -15,7 +15,7 @@ export function ToyDetails() {
     }, [toyId])
 
     function loadToys() {
-        storageService.get(toyId)
+        storageService.get('toyDB', toyId)
             .then((toy) => {
                 setToy(toy)
             })

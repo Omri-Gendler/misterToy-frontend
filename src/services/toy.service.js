@@ -23,13 +23,13 @@ function query(filterBy = {}) {
         .then(toys => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                toys = toys.filter(todo => regExp.test(todo.txt))
+                toys = toys.filter(toy => regExp.test(toy.txt))
             }
 
             if (filterBy.importance) {
                 toys = toys.filter(toy => toy.importance >= filterBy.importance)
             }
-
+            console.log('toys', toys)
             return toys
         })
 }
@@ -96,6 +96,7 @@ function _createToys() {
             toys.push(_createToys(txt + (i + 1), utilService.getRandomIntInclusive(1, 10)))
         }
         utilService.saveToStorage(TOY_KEY, toys)
+        localStorage.setItem(TOY_KEY, JSON.stringify(toys))
     }
 }
 
@@ -129,7 +130,7 @@ function _getToyCountByImportanceMap(toys) {
 
 
 // Data Model:
-// const todo = {
+// const toy = {
 //     _id: "gZ6Nvy",
 //     txt: "Master Redux",
 //     importance: 9,
