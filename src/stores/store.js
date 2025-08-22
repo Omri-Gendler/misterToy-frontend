@@ -1,4 +1,4 @@
-import store from 'redux'
+import {createStore} from 'redux'
 
 
 export const SET_TOYS = 'SET_TOYS'
