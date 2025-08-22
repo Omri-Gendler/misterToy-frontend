@@ -1,0 +1,50 @@
+.app-header {
+    background-color: var(--clr1);
+    color: var(--clr2bg-light);
+    
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+
+}
+
+.header-container__title {
+    flex-grow: 1;
+}
+
+.header-container__nav {
+    display: flex;
+    gap: 15px;
+}
+
+
+a.active {
+    color: rgb(241, 212, 241);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
+@media (max-width: 720px) {
+    .app-header {
+        color: var(--clr2bg-light);
+    }
+}
+
+.todos-progress-bar {
+  width: 200px;
+  margin: 10px 0;
+}
+.bar-bg {
+  background: #eee;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.bar-fill {
+  background: #4caf50;
+  height: 100%;
+  transition: width 0.3s;
+}

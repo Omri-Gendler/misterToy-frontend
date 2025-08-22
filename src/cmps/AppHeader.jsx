@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom"
-
+import '../assets/style/cmps/AppHeader.css' 
 
 export function AppHeader() {
     return (
-        <section>
-
-            <header>
-                <h1>Mister Toy</h1>
+        <section className="header-container">
+            <header className="header-container__main">
+                <h1 className="header-container__title">Mister Toy</h1>
             </header>
-
-            <Link to="/">Home</Link>
-            <Link to="/toy/:toyId">Toy Details</Link>
+            <nav className="header-container__nav">
+                <Link to="/" className="header-container__link">Home</Link>
+                <Link to="/toy/:toyId" className="header-container__link">Toy Details</Link>
+            </nav>
         </section>
-
     )
 }

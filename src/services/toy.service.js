@@ -10,7 +10,7 @@ export const toyService = {
     get,
     remove,
     save,
-    // getEmptyToy,
+    getEmptyToy,
     getDefaultFilter,
     getFilterFromSearchParams,
     getImportanceStats,
@@ -58,7 +58,7 @@ function save(toy) {
     }
 }
 
-function getEmptyTodo(txt = '', importance = 5) {
+function getEmptyToy(txt = '', importance = 5) {
     return { txt, importance, isDone: false }
 }
 
@@ -100,7 +100,7 @@ function _createToys() {
 }
 
 function _createToys(txt, importance) {
-    const toy = getEmptyTodo(txt, importance)
+    const toy = getEmptyToy(txt, importance)
     toy._id = utilService.makeId()
     toy.createdAt = toy.updatedAt = Date.now() - utilService.getRandomIntInclusive(0, 1000 * 60 * 60 * 24)
     return toy

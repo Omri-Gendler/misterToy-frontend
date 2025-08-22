@@ -1,0 +1,19 @@
+:root {
+  --clr1: goldenrod;
+  --clr2: gold;
+
+  --clr1bg: gold;
+  --clr1bg-light: black;
+  --clr2bg: goldenrod;
+  --clr2bg-light: black;
+
+  --gray1: gold;
+  --gray2: gold;
+  --gray3: gold;
+
+}
+
+html {
+  background-color: black;
+  color: black;
+}
