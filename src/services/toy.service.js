@@ -25,10 +25,6 @@ function query(filterBy = {}) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 toys = toys.filter(toy => regExp.test(toy.txt))
             }
-
-            if (filterBy.importance) {
-                toys = toys.filter(toy => toy.importance >= filterBy.importance)
-            }
             console.log('toys', toys)
             return toys
         })
@@ -87,20 +83,17 @@ function getImportanceStats() {
 }
 
 function _createToys() {
-    let toys = utilService.loadFromStorage(TOY_KEY)
+    let toys = JSON.parse(localStorage.getItem(TOY_KEY))
     if (!toys || !toys.length) {
-        toys = []
-        const txts = ['Learn React', 'Master CSS', 'Practice Redux']
-        for (let i = 0; i < 20; i++) {
-            const txt = txts[utilService.getRandomIntInclusive(0, txts.length - 1)]
-            toys.push(_createToys(txt + (i + 1), utilService.getRandomIntInclusive(1, 10)))
-        }
-        utilService.saveToStorage(TOY_KEY, toys)
+        toys = [
+            { _id: 't101', name: 'Lego', price: 120, type: 'Building' },
+            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll' },
+            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car' }
+        ]
         localStorage.setItem(TOY_KEY, JSON.stringify(toys))
     }
 }
-
-function _createToys(txt, importance) {
+function _createToy(txt, importance) {
     const toy = getEmptyToy(txt, importance)
     toy._id = utilService.makeId()
     toy.createdAt = toy.updatedAt = Date.now() - utilService.getRandomIntInclusive(0, 1000 * 60 * 60 * 24)

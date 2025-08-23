@@ -1,36 +1,14 @@
-import {createStore} from 'redux'
+import { combineReducers, compose, legacy_createStore as createStore } from "redux"
+// import { userReducer } from "./reducers/user.reducer.js"
+import { AppReducer} from '../reducers/toy.reducer.js'
+// const { createStore, compose, combineReducers } = Redux
 
+const rootReducer = combineReducers({
+    toyModule: AppReducer,
+    // userModule: userReducer,
+})
 
-export const SET_TOYS = 'SET_TOYS'
-export const ADD_TOY = 'ADD_TOY'
-export const REMOVE_TOY = 'REMOVE_TOY'
-export const UPDATE_TOY = 'UPDATE_TOY'
-export const SET_FILTER = 'SET_FILTER'
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+export const store = createStore(rootReducer, composeEnhancers())
 
-const initialState = {
-    toys: [],
-    filterBy: null,
-    user: null
-}
-
-export function AppReducer(state = initialState, cmd = {}) {
-    switch (cmd.type) {
-        case 'SET_TOYS':
-            return { ...state, toys: cmd.toys }
-        case 'ADD_TOY':
-            return { ...state, toys: [...state.toys, cmd.toy] }
-        case 'REMOVE_TOY':
-            return { ...state, toys: state.toys.filter(toy => toy._id !== cmd.toyId) }
-        case 'UPDATE_TOY':
-            return {
-                ...state,
-                toys: state.toys.map(toy => toy._id === cmd.toy._id ? cmd.toy : toy)
-            }
-        case 'SET_FILTER':
-            return { ...state, filterBy: cmd.filterBy }
-        default:
-            return state
-    }
-}
-
-export const store = createStore(AppReducer)
+window.gStore = store
