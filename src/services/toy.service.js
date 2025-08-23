@@ -83,12 +83,13 @@ function getImportanceStats() {
 }
 
 function _createToys() {
+    const img = 'assets/logo/logo.avif'
     let toys = JSON.parse(localStorage.getItem(TOY_KEY))
     if (!toys || !toys.length) {
         toys = [
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building' },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll' },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car' }
+            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: img },
+            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: img },
+            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: img }
         ]
         localStorage.setItem(TOY_KEY, JSON.stringify(toys))
     }

@@ -28,7 +28,7 @@ export function ToyDetails() {
         <div className="toy-details">
             <AppHeader />
             <div className="toy-details__content">
-                Toy Details for toy ID: {toy?._id}
+                Toy Details for toy ID: {toy[0]?._id}
             </div>
         </div>
     )
