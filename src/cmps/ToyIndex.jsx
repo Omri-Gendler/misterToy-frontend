@@ -31,8 +31,9 @@ export function ToyIndex() {
         const price = +prompt('New price?')
         const toyToSave = { ...toy, price }
 
-    toyService.save(toyToSave)
+        toyService.save(toyToSave)
             .then((savedToy) => {
+                setToys(toys.map(toy => toy._id === savedToy._id ? savedToy : toy))
                 showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
             })
             .catch(err => {
