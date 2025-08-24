@@ -1,0 +1,23 @@
+.toy-index {
+  padding: 2rem;
+  background: #f0f4fa;
+  min-height: 100vh;
+}
+
+.toy-preview {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s;
+}
+
+.toy-preview:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+}
+
+.toy-preview h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2a3a5e;
+}

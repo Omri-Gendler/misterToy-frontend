@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toyService } from "../services/toy.service";
 import { AppHeader } from "./AppHeader";
+import { ToyList } from "./ToyList";
 
 
 
@@ -16,6 +17,40 @@ export function ToyIndex() {
             })
     }, [])
 
+    function onRemoveToy(toyId) {
+        toyService.remove(toyId)
+            .then(() => {
+                setToys(toys.filter(toy => toy._id !== toyId))
+                console.log('Removed toy:', toyId)
+            })
+    }
+
+    function onEditToy(toy) {
+        const price = +prompt('New price?')
+        const toyToSave = { ...toy, price }
+
+        saveCar(carToSave)
+            .then((savedCar) => {
+                showSuccessMsg(`Car updated to price: $${savedCar.price}`)
+            })
+            .catch(err => {
+                showErrorMsg('Cannot update car')
+            })
+    }
+
+    function onEditToy(toy) {
+        const price = +prompt('New price?')
+        const toyToSave = { ...toy, price }
+
+        saveCar(toyToSave)
+            .then((savedToy) => {
+                showSuccessMsg(`Car updated to price: $${savedCar.price}`)
+            })
+            .catch(err => {
+                showErrorMsg('Cannot update car')
+            })
+    }
+
     return (
         <div className="toy-index">
             <AppHeader />
@@ -24,8 +59,10 @@ export function ToyIndex() {
                     <h3>{toy.name}</h3>
                     <p>Price: {toy.price}</p>
                     <p>Type: {toy.type}</p>
+
                 </div>
             ))}
+            <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
         </div>
     )
 }
