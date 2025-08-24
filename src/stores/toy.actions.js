@@ -1,5 +1,14 @@
 import { storageService } from './async-storage.service.js'
-import { SET_TOYS, ADD_TOY, REMOVE_TOY, UPDATE_TOY, SET_FILTER } from '../stores/store.js'
+import { SET_TOYS, ADD_TOY, REMOVE_TOY, UPDATE_TOY, SET_FILTER, } from '../stores/store.js'
+
+export const toyActions = {
+    loadToys,
+    removeToy,
+    saveToy,
+    updateToy,
+    addToy,
+    setFilter
+}
 
 
 export function loadToys(filterBy) {
@@ -19,6 +28,21 @@ export function removeToy(toyId) {
             console.error('Error removing toy:', err)
         })
 }
+
+export function saveToy(toy) {
+    const type = toy._id ? UPDATE_TOY : ADD_TOY
+    return toyService.save(toy)
+        .then(savedToy => {
+            console.log('savedToy:', savedToy)
+            store.dispatch({ type, toy: savedToy })
+            return savedToy
+        })
+        .catch(err => {
+            console.log('toy action -> Cannot save toy', err)
+            throw err
+        })
+}
+
 
 export function updateToy(toy) {
     storageService.put(toy)

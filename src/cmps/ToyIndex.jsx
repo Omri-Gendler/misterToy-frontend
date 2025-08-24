@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { toyService } from "../services/toy.service";
 import { AppHeader } from "./AppHeader";
 import { ToyList } from "./ToyList";
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+// import { toyActions } from "../stores/toy.actions.js";
 
 
 
@@ -29,25 +31,12 @@ export function ToyIndex() {
         const price = +prompt('New price?')
         const toyToSave = { ...toy, price }
 
-        saveCar(carToSave)
-            .then((savedCar) => {
-                showSuccessMsg(`Car updated to price: $${savedCar.price}`)
-            })
-            .catch(err => {
-                showErrorMsg('Cannot update car')
-            })
-    }
-
-    function onEditToy(toy) {
-        const price = +prompt('New price?')
-        const toyToSave = { ...toy, price }
-
-        saveCar(toyToSave)
+    toyService.save(toyToSave)
             .then((savedToy) => {
-                showSuccessMsg(`Car updated to price: $${savedCar.price}`)
+                showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
             })
             .catch(err => {
-                showErrorMsg('Cannot update car')
+                showErrorMsg('Cannot update toy')
             })
     }
 
