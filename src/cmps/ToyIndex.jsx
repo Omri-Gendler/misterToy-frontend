@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toyService } from "../services/toy.service";
 import { AppHeader } from "./AppHeader";
-import { ToyList } from "./ToyList";
+// import { ToyList } from "./ToyList";
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { ToyFilter } from "./ToyFilter.jsx";
 import { useNavigate } from "react-router"
@@ -13,15 +13,17 @@ import '../assets/css/pages/ToyIndex.css'
 
 export function ToyIndex() {
 
-    // const [toys, setToys] = useState([])
-    const toys = useSelector(state => state.toyModule.toys)
+    const [toys, setToys] = useState([])
+    // const toys = useSelector(state => state.toyModule.toys)
     const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        toyService.query()
-        toyActions.loadToys()
+        toyService.query(filterBy)
+            .then(toys => {
+                setToys(toys)
+            })
         console.log('Loaded toys:', toys)
     }, [])
 
@@ -65,10 +67,12 @@ export function ToyIndex() {
                     <h3>{toy.name}</h3>
                     <p>Price: {toy.price}</p>
                     <p>Type: {toy.type}</p>
-
+                    <p>In Stock: {toy.inStock ? 'Yes' : 'No'}</p>
+                    <button onClick={() => onEditToy(toy)}>Edit</button>
+                    <button onClick={() => onRemoveToy(toy._id)}>Remove</button>
                 </div>
             ))}
-            <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
+            {/* <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} /> */}
         </div>
     )
 }
