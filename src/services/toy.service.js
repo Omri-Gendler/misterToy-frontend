@@ -21,9 +21,14 @@ window.cs = toyService
 function query(filterBy = {}) {
     return storageService.query(TOY_KEY)
         .then(toys => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                toys = toys.filter(toy => regExp.test(toy.txt))
+            if (filterBy.name) {
+                const regExp = new RegExp(filterBy.name, 'i')
+                toys = toys.filter(toy => regExp.test(toy.name))
+            }
+            if (filterBy.inStock && filterBy.inStock === '0') {
+                toys = toys.filter(toy => toy.inStock)
+            } else if (filterBy.inStock && filterBy.inStock === '1') {
+                toys = toys.filter(toy => !toy.inStock)
             }
             console.log('toys', toys)
             return toys
@@ -87,9 +92,9 @@ function _createToys() {
     let toys = JSON.parse(localStorage.getItem(TOY_KEY))
     if (!toys || !toys.length) {
         toys = [
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: img },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: img },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: img }
+            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: img, inStock: true },
+            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: img, inStock: false },
+            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: img, inStock: true }
         ]
         localStorage.setItem(TOY_KEY, JSON.stringify(toys))
     }

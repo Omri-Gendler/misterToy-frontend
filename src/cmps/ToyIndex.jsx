@@ -3,6 +3,7 @@ import { toyService } from "../services/toy.service";
 import { AppHeader } from "./AppHeader";
 import { ToyList } from "./ToyList";
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { ToyFilter } from "./ToyFilter.jsx";
 // import { toyActions } from "../stores/toy.actions.js";
 
 
@@ -10,6 +11,7 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 export function ToyIndex() {
 
     const [toys, setToys] = useState([])
+    const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
 
     useEffect(() => {
         toyService.query()
@@ -41,9 +43,18 @@ export function ToyIndex() {
             })
     }
 
+    function onSetFilter(filterBy) {
+        toyService.query(filterBy)
+            .then(toys => {
+                setToys(toys)
+                console.log('Filtered toys:', toys)
+            })
+    }
+
     return (
         <div className="toy-index">
             <AppHeader />
+            <ToyFilter onSetFilter={onSetFilter} />
             {toys && toys.map(toy => (
                 <div key={toy._id} className="toy-preview">
                     <h3>{toy.name}</h3>
