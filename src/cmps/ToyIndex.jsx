@@ -1,36 +1,41 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toyService } from "../services/toy.service";
 import { AppHeader } from "./AppHeader";
 import { ToyList } from "./ToyList";
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { ToyFilter } from "./ToyFilter.jsx";
-// import { toyActions } from "../stores/toy.actions.js";
+import { useNavigate } from "react-router"
+import { toyActions } from "../stores/toy.actions.js";
 
+import '../assets/css/pages/ToyIndex.css'
 
 
 export function ToyIndex() {
 
-    const [toys, setToys] = useState([])
+    // const [toys, setToys] = useState([])
+    const toys = useSelector(state => state.toyModule.toys)
     const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         toyService.query()
-            .then(toys => {
-                setToys(toys)
-                console.log('Loaded toys:', toys)
-            })
+        toyActions.loadToys()
+        console.log('Loaded toys:', toys)
     }, [])
 
     function onRemoveToy(toyId) {
         toyService.remove(toyId)
             .then(() => {
-                setToys(toys.filter(toy => toy._id !== toyId))
+                toyActions.removeToy(toyId)
                 console.log('Removed toy:', toyId)
             })
     }
 
     function onEditToy(toy) {
-        const price = +prompt('New price?')
+        navigate(`/toy/edit/${toy._id}`)
+        // const price = +prompt('New price?')
         const toyToSave = { ...toy, price }
 
         toyService.save(toyToSave)

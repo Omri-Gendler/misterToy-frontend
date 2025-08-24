@@ -5,6 +5,7 @@ import { store } from './stores/store.js'
 import { Home } from './pages/Home.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyIndex } from './cmps/ToyIndex.jsx'
+import { ToyEdit } from './pages/ToyEdit.jsx'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/toy" element={<ToyIndex />} />
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/toy/:id" element={<ToyDetails />} />
+          <Route path="/toy/edit/:id?" element={<ToyEdit />} />
         </Routes>
       </Router>
     </Provider>

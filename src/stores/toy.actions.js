@@ -1,4 +1,4 @@
-import { storageService } from './async-storage.service.js'
+import { storageService } from '../services/async-storage.service.js'
 import { SET_TOYS, ADD_TOY, REMOVE_TOY, UPDATE_TOY, SET_FILTER, } from '../stores/store.js'
 
 export const toyActions = {
