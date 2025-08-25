@@ -96,6 +96,17 @@ function _createToys() {
             { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: img, inStock: false },
             { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: img, inStock: true }
         ]
+        // Add 17 more toys
+        for (let i = 4; i <= 20; i++) {
+            toys.push({
+                _id: `t${100 + i}`,
+                name: `Toy ${i}`,
+                price: Math.floor(Math.random() * 200) + 20,
+                type: ['Building', 'Doll', 'Car', 'Puzzle', 'Action'][i % 5],
+                imgUrl: img,
+                inStock: Math.random() > 0.5
+            })
+        }
         localStorage.setItem(TOY_KEY, JSON.stringify(toys))
     }
 }
