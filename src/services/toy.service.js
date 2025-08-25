@@ -88,13 +88,16 @@ function getImportanceStats() {
 }
 
 function _createToys() {
-    const img = 'assets/logo/logo.avif'
+    const toyImgs = [
+        '/toy.jpg.jpg',
+        '/toy1.jpg.jpg'
+    ]
     let toys = JSON.parse(localStorage.getItem(TOY_KEY))
     if (!toys || !toys.length) {
         toys = [
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: img, inStock: true },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: img, inStock: false },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: img, inStock: true }
+            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true },
+            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false },
+            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true }
         ]
         // Add 17 more toys
         for (let i = 4; i <= 20; i++) {
@@ -103,7 +106,7 @@ function _createToys() {
                 name: `Toy ${i}`,
                 price: Math.floor(Math.random() * 200) + 20,
                 type: ['Building', 'Doll', 'Car', 'Puzzle', 'Action'][i % 5],
-                imgUrl: img,
+                imgUrl: toyImgs[Math.floor(Math.random() * toyImgs.length)],
                 inStock: Math.random() > 0.5
             })
         }
