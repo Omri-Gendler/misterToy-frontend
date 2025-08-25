@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './stores/store.js'
 
@@ -9,8 +9,8 @@ import { ToyEdit } from './pages/ToyEdit.jsx'
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <Router>
+    <HashRouter>
+      <Provider store={store}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/toy" element={<ToyIndex />} />
@@ -18,7 +18,7 @@ export default function App() {
           <Route path="/toy/:id" element={<ToyDetails />} />
           <Route path="/toy/edit/:id?" element={<ToyEdit />} />
         </Routes>
-      </Router>
-    </Provider>
+      </Provider>
+    </HashRouter>
   )
 }
