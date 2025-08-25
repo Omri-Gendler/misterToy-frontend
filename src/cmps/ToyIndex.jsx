@@ -42,13 +42,13 @@ export function ToyIndex() {
             <AppHeader />
             <ToyFilter onSetFilter={onSetFilter} />
             {toys && toys.map(toy => (
-                <div key={toy._id} className="loader-container">
-                    <h3>{toy.name}</h3>
+                <div key={toy._id} className="toy-card">
+                    <h3 className="toy-card h3">{toy.name}</h3>
                     <p>Price: {toy.price}</p>
                     <p>Type: {toy.type}</p>
                     <p>In Stock: {toy.inStock ? 'Yes' : 'No'}</p>
-                    <button onClick={() => onEditToy(toy)}>Edit</button>
-                    <button onClick={() => onRemoveToy(toy._id)}>Remove</button>
+                    <button className="toy-card button" onClick={() => onEditToy(toy)}>Edit</button>
+                    <button className="toy-card button" onClick={() => onRemoveToy(toy._id)}>Remove</button>
                 </div>
             ))}
             {/* <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} /> */}
