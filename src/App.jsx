@@ -4,7 +4,7 @@ import { store } from './stores/store.js'
 
 import { Home } from './pages/Home.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
-import { ToyIndex } from './cmps/ToyIndex.jsx'
+import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 
 export default function App() {
