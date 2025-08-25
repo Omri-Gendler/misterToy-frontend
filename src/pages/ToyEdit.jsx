@@ -1,12 +1,22 @@
-import { useNavigate } from "react-router"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate, useParams } from "react-router"
+import { saveToy, updateToy } from "../stores/toy.actions.js"
 
 
 export function ToyEdit() {
     const navigate = useNavigate()
+    const toyId = useParams().id
+    console.log('Editing toy with ID:', toyId)
 
-    function handleSubmit(ev) {
+    async function handleSubmit(ev) {
         ev.preventDefault()
-        navigate(`/toy`)
+        const name = ev.target.name.value
+        const price = ev.target.price.value
+        const type = ev.target.type.value
+
+        await updateToy({ _id: toyId, name, price, type })
+        console.log('Form submitted with:', { id: toyId, name, price, type })
+        await navigate(`/toy`)
     }
     return (
         <div className="toy-edit">
@@ -22,7 +32,10 @@ export function ToyEdit() {
                 </label>
                 <label>
                     Type:
-                    <input type="text" name="type" />
+                    <select name="type" id="">
+                        <option value="inStock">true</option>
+                        <option value="inStock">false</option>
+                    </select>
                 </label>
                 <button type="submit">Save</button>
             </form>

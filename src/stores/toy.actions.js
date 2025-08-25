@@ -58,9 +58,10 @@ export function saveToy(toy) {
 
 
 export function updateToy(toy) {
-    toyService.put(toy)
-        .then(() => {
-            store.dispatch({ type: UPDATE_TOY, toy })
+    return toyService.save(toy)
+        .then((updatedToy) => {
+            store.dispatch({ type: UPDATE_TOY, toy: updatedToy })
+            return updatedToy
         })
         .catch(err => {
             console.error('Error updating toy:', err)
