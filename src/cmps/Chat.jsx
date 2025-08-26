@@ -27,6 +27,7 @@ export function Chat() {
                 ))}
             </div>
             <div className="chat__input">
+                
                 <input
                     type="text"
                     from="user"
