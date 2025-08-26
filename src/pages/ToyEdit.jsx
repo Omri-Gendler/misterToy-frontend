@@ -1,11 +1,17 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router"
 import { saveToy, updateToy } from "../stores/toy.actions.js"
+import { Chat } from "../cmps/Chat.jsx"
+import { AppHeader } from "../cmps/AppHeader.jsx"
+import { PopUp } from "../cmps/PopUp.jsx"
+import { useState } from "react"
 
 
 export function ToyEdit() {
     const navigate = useNavigate()
     const toyId = useParams().id
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
     console.log('Editing toy with ID:', toyId)
 
     async function handleSubmit(ev) {
@@ -20,6 +26,7 @@ export function ToyEdit() {
     }
     return (
         <div className="toy-edit">
+            <AppHeader />
             <h2>Edit Toy</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -39,6 +46,20 @@ export function ToyEdit() {
                 </label>
                 <button type="submit">Save</button>
             </form>
+            {/* Floating chat button */}
+            <button
+                className="floating-chat-btn"
+                onClick={() => setIsPopUpOpen(true)}
+                title="Open Chat"
+            >
+                💬
+            </button>
+            <PopUp
+                isOpen={isPopUpOpen}
+                onClose={() => setIsPopUpOpen(false)}
+            >
+                <Chat />
+            </PopUp>
         </div>
     )
 }

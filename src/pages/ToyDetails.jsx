@@ -5,11 +5,14 @@ import { AppHeader } from "../cmps/AppHeader.jsx"
 // import { loadToys } from "../stores/toy.actions.js"
 import '../assets/style/cmps/TodoDetails.css' // Import the CSS
 import { toyService } from "../services/toy.service.js"
+import { Chat } from "../cmps/Chat.jsx"
+import { ToyEdit } from "./ToyEdit.jsx"
+import { useSelector } from "react-redux"
 
 const TOY_KEY = 'toyDB'
 
 export function ToyDetails() {
-    const [toy, setToy] = useState(null)
+    const toy = useSelector(state => state.toy)
 
     useEffect(() => {
         loadToys()
@@ -24,12 +27,15 @@ export function ToyDetails() {
             })
     }
 
+
     return (
         <div className="toy-details">
             <AppHeader />
             <div className="toy-details__content">
-                Toy Details for toy ID: {toy[0]?._id}
+                Toy Details for toy ID:
             </div>
+            {/* <ToyEdit /> */}
+            {/* <Chat /> */}
         </div>
     )
 }
