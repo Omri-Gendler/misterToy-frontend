@@ -11,6 +11,7 @@ const TOY_KEY = 'toyDB'
 export function ToyDetails() {
     const toys = useSelector(state => state.toyModule.toys)
     const navigate = useNavigate()
+    const [toy, setToy] = useState(null)
 
     console.log('toys', toys)
     const currToy = toys.find(toy => toy._id === useParams().id) || {}
