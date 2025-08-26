@@ -32,7 +32,6 @@ export function Chat() {
                     from="user"
                     value={input}
                     onChange={e => setInput(e.target.value)}
-                    placeholder="Type your message..."
                 />
                 <button onClick={() => addMsg(input, 'user')}>Send</button>
             </div>
