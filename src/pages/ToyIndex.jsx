@@ -17,14 +17,16 @@ export function ToyIndex() {
     const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
     const navigate = useNavigate()
 
+    const totalToys = toys.length
+    const toysPerPage = 5
+    const totalPages = Math.ceil(totalToys / toysPerPage)
+    const [currPage, setCurrPage] = useState(1)
 
     useEffect(() => {
         loadToys(filterBy)
-        console.log('Loaded toys:', toys)
     }, [filterBy])
 
     function onRemoveToy(toyId) {
-        console.log('Removing toy:', toyId)
         removeToy(toyId)
     }
 
@@ -34,14 +36,35 @@ export function ToyIndex() {
     }
 
     function onSetFilter(filterBy) {
+        setCurrPage(1)
         setFilterBy(filterBy)
     }
+
+    const startIdx = (currPage - 1) * toysPerPage
+    const endIdx = startIdx + toysPerPage
+    const toysToShow = toys.slice(startIdx, endIdx)
 
     return (
         <div className="toy-index">
             <AppHeader />
             <ToyFilter onSetFilter={onSetFilter} />
-            <ToyList toys={toys} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
+            <ToyList toys={toysToShow} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
+
+            <div className="pagination">
+                <button
+                    disabled={currPage === 1}
+                    onClick={() => setCurrPage(currPage - 1)}
+                >
+                    Prev
+                </button>
+                <span>Page {currPage} of {totalPages}</span>
+                <button
+                    disabled={currPage === totalPages}
+                    onClick={() => setCurrPage(currPage + 1)}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     )
 }

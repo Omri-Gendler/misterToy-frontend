@@ -4,6 +4,13 @@ import '../assets/style/cmps/ToyList.css'
 
 export function ToyList({ toys, onRemoveToy, onEditToy }) {
     const navigate = useNavigate()
+
+    const currPage = 1
+    const toysPerPage = 3
+    const start = (currPage - 1) * toysPerPage
+    const end = start + toysPerPage
+    const currToys = toys.slice(start, end)
+
     return (
         <ul className="toy-list">
             {toys.map(toy => (
