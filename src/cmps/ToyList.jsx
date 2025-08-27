@@ -10,7 +10,7 @@ export function ToyList({ toys, onRemoveToy, onEditToy }) {
                 <div className="toy-list li" key={toy._id}>
                     <li className="toy-list" key={toy.id}>
                         <h3 className="toy-card h3">{toy.name}</h3>
-                        <img className="toy-preview img" onClick={() => navigate(`/toy/${toy._id}`)} src={toy.imgUrl} alt={toy.name} />
+                        <img className="img" onClick={() => navigate(`/toy/${toy._id}`)} src={toy.imgUrl} alt={toy.name} />
                         <p>Price: {toy.price}</p>
                         <p>Type: {toy.type}</p>
                         <p>In Stock: {toy.inStock ? 'Yes' : 'No'}</p>

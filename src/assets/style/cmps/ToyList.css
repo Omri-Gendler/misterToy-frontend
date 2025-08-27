@@ -13,3 +13,8 @@
     align-items: center;
     background-color: var(--clr1bg);
 }
+
+.img {
+    max-width: 100%;
+    height: auto;
+}
