@@ -48,8 +48,8 @@ function remove(toyId) {
 }
 
 function save(toy) {
+    if (!toy.labels) toy.labels = []
     if (toy._id) {
-        // TODO - updatable fields
         toy.updatedAt = Date.now()
         return storageService.put(TOY_KEY, toy)
     } else {
@@ -59,8 +59,8 @@ function save(toy) {
     }
 }
 
-function getEmptyToy(txt = '', importance = 5) {
-    return { txt, importance, isDone: false }
+function getEmptyToy(txt = '', importance = 5, labels = []) {
+    return { txt, importance, isDone: false, labels }
 }
 
 function getDefaultFilter() {
@@ -95,11 +95,10 @@ function _createToys() {
     let toys = JSON.parse(localStorage.getItem(TOY_KEY))
     if (!toys || !toys.length) {
         toys = [
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true }
+            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true, labels: ['classic', 'blocks'] },
+            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false, labels: ['fashion', 'doll'] },
+            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] }
         ]
-        // Add 17 more toys
         for (let i = 4; i <= 20; i++) {
             toys.push({
                 _id: `t${100 + i}`,
@@ -107,7 +106,8 @@ function _createToys() {
                 price: Math.floor(Math.random() * 200) + 20,
                 type: ['Building', 'Doll', 'Car', 'Puzzle', 'Action'][i % 5],
                 imgUrl: toyImgs[Math.floor(Math.random() * toyImgs.length)],
-                inStock: Math.random() > 0.5
+                inStock: Math.random() > 0.5,
+                labels: ['fun', 'kids', `type${i % 5}`]
             })
         }
         localStorage.setItem(TOY_KEY, JSON.stringify(toys))
