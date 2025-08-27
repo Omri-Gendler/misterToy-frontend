@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router";
 
+import '../assets/style/cmps/ToyList.css'
 
 export function ToyList({ toys, onRemoveToy, onEditToy }) {
     const navigate = useNavigate()
     return (
-        <ul>
+        <ul className="toy-list">
             {toys.map(toy => (
-                <div className="toy-card" key={toy._id}>
-                    <li className="toy-card" key={toy.id}>
+                <div className="toy-list li" key={toy._id}>
+                    <li className="toy-list" key={toy.id}>
                         <h3 className="toy-card h3">{toy.name}</h3>
-                        <img onClick={() => navigate(`/toy/${toy._id}`)} className="toy-card img" src={toy.imgUrl} alt={toy.name} />
+                        <img className="toy-preview img" onClick={() => navigate(`/toy/${toy._id}`)} src={toy.imgUrl} alt={toy.name} />
                         <p>Price: {toy.price}</p>
                         <p>Type: {toy.type}</p>
                         <p>In Stock: {toy.inStock ? 'Yes' : 'No'}</p>

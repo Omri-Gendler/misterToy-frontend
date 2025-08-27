@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { AppHeader } from "../cmps/AppHeader.jsx"
-import '../assets/style/cmps/TodoDetails.css' // Import the CSS
+// import '../assets/style/cmps/TodoList.css' // Import the CSS
 import { toyService } from "../services/toy.service.js"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"

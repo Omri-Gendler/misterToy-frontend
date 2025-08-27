@@ -8,7 +8,7 @@ import { ToyFilter } from "../cmps/ToyFilter.jsx";
 import { useNavigate } from "react-router"
 import { loadToys, removeToy, updateToy, setFilter } from "../stores/toy.actions.js";
 
-import '../assets/css/pages/ToyIndex.css'
+// import '../assets/css/pages/ToyIndex.css'
 
 
 export function ToyIndex() {

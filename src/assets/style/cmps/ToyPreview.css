@@ -1,4 +1,4 @@
-.todo-preview {
+.toy-preview {
     text-align: center;
     padding: 0.3em;
     display: flex;
@@ -6,15 +6,15 @@
     align-items: center;
 }
 
-.todo-preview h4 {
+.toy-preview h4 {
     text-transform: capitalize;
     color: black;
 }
 
-.todo-preview img {
+.toy-preview img {
     max-width: 100px;
 }
 
-.todo-preview h2 {
+.toy-preview h2 {
     color: black;
 }
