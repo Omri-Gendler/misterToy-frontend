@@ -21,6 +21,7 @@ export function ToyList({ toys, onRemoveToy, onEditToy }) {
                         <p>Price: {toy.price}</p>
                         <p>Type: {toy.type}</p>
                         <p>In Stock: {toy.inStock ? 'Yes' : 'No'}</p>
+                        <p>Labels:{toy.labels}</p>
                         <button className="toy-card button"
                             onClick={() => navigate(`/toy/edit/${toy._id}`)}>Edit</button>
                         <button className="toy-card button" onClick={() => onRemoveToy(toy._id)}>Remove</button>

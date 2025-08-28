@@ -6,6 +6,7 @@ import { Home } from './pages/Home.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
+import { DashboardPage } from './pages/DashboardPage.jsx'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/toy/:id" element={<ToyDetails />} />
           <Route path="/toy/edit/:id?" element={<ToyEdit />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
       </Provider>
     </HashRouter>

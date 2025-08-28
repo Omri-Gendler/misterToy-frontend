@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom"
 import '../assets/style/cmps/AppHeader.css'
 
+
 export function AppHeader() {
     return (
         <section className="header-container">
@@ -10,6 +11,7 @@ export function AppHeader() {
             <nav className="header-container__nav">
                 <NavLink to="/" className="header-container__link">Home</NavLink>
                 <NavLink to="/toy" className="header-container__link">Toys</NavLink>
+                <NavLink to="/dashboard" className="header-container__link">Dashboard</NavLink>
             </nav>
         </section>
     )
