@@ -1,3 +1,4 @@
+import { BarChart } from '@mui/x-charts'
 import { PieChart } from '@mui/x-charts/PieChart'
 
 export function Dashboard({ toys }) {
@@ -31,7 +32,7 @@ export function Dashboard({ toys }) {
                 width={400}
                 height={300}
             />
-            
+
             <BarChart
                 xAxis={[{ data: ['group A', 'group B', 'group C'] }]}
                 series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
