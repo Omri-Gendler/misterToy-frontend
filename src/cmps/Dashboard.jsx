@@ -1,25 +1,44 @@
 import { PieChart } from '@mui/x-charts/PieChart'
 
 export function Dashboard({ toys }) {
+    // Aggregate price per label
+    const pricePerLabel = {}
+    toys.forEach(toy => {
+        if (Array.isArray(toy.labels)) {
+            toy.labels.forEach(label => {
+                pricePerLabel[label] = (pricePerLabel[label] || 0) + toy.price
+                console.log('Label:', label, 'Price:', toy.price)
+            })
+        }
+    })
 
-    const pieData = toys.map((toy, index) => ({
-        id: index,
-        value: toy.price,
-        label: toy.name
+    // Format for PieChart
+    const pieData = Object.entries(pricePerLabel).map(([label, price], idx) => ({
+        id: idx,
+        value: price,
+        label,
     }))
+
 
     return (
         <div>
-            {console.log(toys)}
             <PieChart
                 series={[
                     {
                         data: pieData
                     },
                 ]}
-                width={200}
-                height={200}
+                width={400}
+                height={300}
+            />
+            
+            <BarChart
+                xAxis={[{ data: ['group A', 'group B', 'group C'] }]}
+                series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
+                height={300}
             />
         </div>
     )
+
+
 }
