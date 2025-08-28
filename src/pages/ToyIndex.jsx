@@ -18,7 +18,7 @@ export function ToyIndex() {
     const navigate = useNavigate()
 
     const totalToys = toys.length
-    const toysPerPage = 3
+    const toysPerPage = 5
     const totalPages = Math.ceil(totalToys / toysPerPage)
     const [currPage, setCurrPage] = useState(1)
 

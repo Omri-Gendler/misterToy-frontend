@@ -40,8 +40,8 @@ export function ToyEdit() {
                 <label>
                     Type:
                     <select name="type" id="">
-                        <option value="inStock">true</option>
-                        <option value="inStock">false</option>
+                        <option value="inStock">In Stock</option>
+                        <option value="outOfStock">Out of Stock</option>
                     </select>
                 </label>
                 <button type="submit">Save</button>
@@ -60,6 +60,7 @@ export function ToyEdit() {
             >
                 <Chat />
             </PopUp>
+            <button onClick={() => navigate('/toy')}>Back</button>
         </div>
     )
 }

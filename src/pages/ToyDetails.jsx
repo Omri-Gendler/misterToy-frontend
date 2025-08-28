@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { AppHeader } from "../cmps/AppHeader.jsx"
-// import '../assets/style/cmps/TodoList.css' // Import the CSS
+import '../assets/style/cmps/ToyDetails.css'
 import { toyService } from "../services/toy.service.js"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
@@ -46,10 +46,11 @@ export function ToyDetails() {
         <div className="toy-details">
             <AppHeader />
             <div className="toy-details__content">
-                <img className="toy-card img" src={currToy.imgUrl} alt="" />
+                <img className="toy-details img" src={currToy.imgUrl} alt="" />
                 <p>{currToy.name}</p>
                 <p>{currToy.price}</p>
             </div>
+            <button onClick={() => navigate(-1)}>Back</button>
             <button onClick={() => onEditToy(currToy)}>Edit</button>
             <button onClick={() => onRemoveToy(currToy._id)}>Delete</button>
         </div>
