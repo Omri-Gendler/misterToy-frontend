@@ -20,6 +20,26 @@ export function Dashboard({ toys }) {
         label,
     }))
 
+    const percentageInStockPerLabel = {}
+    toys.forEach(toy => {
+        if (Array.isArray(toy.labels)) {
+            toy.labels.forEach(label => {
+                if (!percentageInStockPerLabel[label]) {
+                    percentageInStockPerLabel[label] = { inStock: 0, total: 0 }
+                }
+                if (toy.inStock) {
+                    percentageInStockPerLabel[label].inStock += 1
+                }
+                percentageInStockPerLabel[label].total += 1
+            })
+        }
+    })
+
+    const labels = Object.keys(percentageInStockPerLabel)
+    const percentages = labels.map(label => {
+        const { inStock, total } = percentageInStockPerLabel[label]
+        return total ? Math.round((inStock / total) * 100) : 0
+    })
 
     return (
         <div>
@@ -34,11 +54,10 @@ export function Dashboard({ toys }) {
             />
 
             <BarChart
-                xAxis={[{ data: ['group A', 'group B', 'group C'] }]}
-                series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
+                xAxis={[{ data: labels, scaleType: 'band', label: 'Label' }]}
+                series={[{ data: percentages, label: '% In Stock' }]}
                 height={300}
-            />
-        </div>
+            />        </div>
     )
 
 
