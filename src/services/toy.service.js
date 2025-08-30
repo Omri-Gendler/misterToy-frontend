@@ -31,6 +31,11 @@ function query(filterBy = {}) {
             } else if (filterBy.inStock && filterBy.inStock === '1') {
                 toys = toys.filter(toy => !toy.inStock)
             }
+            if (filterBy.labels && filterBy.labels.length) {
+                toys = toys.filter(toy => {
+                    return toy.labels.some(label => filterBy.labels.includes(label))
+                })
+            }
             console.log('toys', toys)
             return toys
         })
@@ -99,33 +104,13 @@ function _createToys() {
             { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true, labels: ['classic', 'blocks'] },
             { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false, labels: ['fashion', 'doll'] },
             { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true, labels: ['classic', 'blocks'] },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false, labels: ['fashion', 'doll'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true, labels: ['classic', 'blocks'] },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false, labels: ['fashion', 'doll'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
+            { _id: 't104', name: 'Rubik\'s Cube', price: 40, type: 'Puzzle', imgUrl: toyImgs[1], inStock: true, labels: ['puzzle', 'classic'] },
+            { _id: 't105', name: 'Play-Doh', price: 30, type: 'Craft', imgUrl: toyImgs[0], inStock: false, labels: ['craft', 'kids'] },
+            { _id: 't106', name: 'Nerf Gun', price: 90, type: 'Action', imgUrl: toyImgs[1], inStock: true, labels: ['action', 'outdoor'] },
+            { _id: 't107', name: 'Monopoly', price: 60, type: 'Board Game', imgUrl: toyImgs[0], inStock: true, labels: ['board', 'family'] },
+            { _id: 't108', name: 'UNO', price: 25, type: 'Card Game', imgUrl: toyImgs[1], inStock: false, labels: ['card', 'family'] },
+            { _id: 't109', name: 'Transformers', price: 110, type: 'Action', imgUrl: toyImgs[0], inStock: true, labels: ['action', 'robot'] },
+            { _id: 't110', name: 'Jenga', price: 35, type: 'Board Game', imgUrl: toyImgs[1], inStock: true, labels: ['board', 'classic'] },
         ]
         localStorage.setItem(TOY_KEY, JSON.stringify(toys))
     }
