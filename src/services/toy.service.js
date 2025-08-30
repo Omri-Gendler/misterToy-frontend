@@ -14,6 +14,7 @@ export const toyService = {
     getDefaultFilter,
     getFilterFromSearchParams,
     getImportanceStats,
+    getLabels,
 }
 // For Debug (easy access from console):
 window.cs = toyService
@@ -155,6 +156,17 @@ function _getToyCountByImportanceMap(toys) {
         return map
     }, { low: 0, normal: 0, urgent: 0 })
     return toyCountByImportanceMap
+}
+
+function getLabels() {
+    const toys = JSON.parse(localStorage.getItem(TOY_KEY))
+    const labels = toys.reduce((acc, toy) => {
+        toy.labels.forEach(label => {
+            if (!acc.includes(label)) acc.push(label)
+        })
+        return acc
+    }, [])
+    return labels
 }
 
 

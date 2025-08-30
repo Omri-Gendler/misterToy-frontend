@@ -17,6 +17,9 @@ export function ToyIndex() {
     const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
     const navigate = useNavigate()
 
+    const labels = toyService.getLabels()
+    console.log('Labels:', labels)
+
     const totalToys = toys.length
     const toysPerPage = 5
     const totalPages = Math.ceil(totalToys / toysPerPage)
@@ -47,7 +50,7 @@ export function ToyIndex() {
     return (
         <div className="toy-index">
             <AppHeader />
-            <ToyFilter onSetFilter={onSetFilter} />
+            <ToyFilter onSetFilter={onSetFilter} labels={labels} />
             <ToyList toys={toysToShow} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
 
             <div className="pagination">
