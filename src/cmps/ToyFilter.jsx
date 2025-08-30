@@ -1,9 +1,16 @@
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
 
 export function ToyFilter({ onSetFilter, labels }) {
-    const [filterBy, setFilterBy] = useState({ name: '', importance: 0 })
+    const [filterBy, setFilterBy] = useState({ name: '', importance: 0, labels: '' })
 
     const navigate = useNavigate()
 
@@ -34,13 +41,26 @@ export function ToyFilter({ onSetFilter, labels }) {
                     <option value="2">All</option>
                 </select>
 
-                <select name="labels" value={filterBy.labels} onChange={handleChange}>
+                <Select
+                    name="labels"
+                    value={filterBy.labels}
+                    onChange={handleChange}
+                >
+                    {labels.map(label => (
+                        <MenuItem key={label} value={label}>{label}</MenuItem>
+                    ))}
+                </Select>
+
+
+
+                {/* <select name="labels" value={filterBy.labels} onChange={handleChange}>
                     <option value="">Select Label</option>
                     {labels.map(label => (
                         <option key={label} value={label}>{label}</option>
                     ))}
-                </select>
+                </select> */}
                 <button>Apply Filter</button>
+                <button onClick={() => setFilterBy({ name: '', importance: 0, labels: '' })}>Clear</button>
             </form>
         </div>
     )
