@@ -41,7 +41,7 @@ export function ToyFilter({ onSetFilter, labels }) {
                     <option value="2">All</option>
                 </select>
 
-                <Select
+                <Select style={{ maxWidth: 100, maxHeight: 40, marginRight: 10, marginLeft: 10, backgroundColor: 'rgb(59, 59, 59)' }}
                     name="labels"
                     value={filterBy.labels}
                     onChange={handleChange}
