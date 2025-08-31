@@ -1,7 +1,7 @@
 import { AdvancedMarker, APIProvider, Map } from '@vis.gl/react-google-maps';
 import { AppHeader } from "../cmps/AppHeader";
 
-const API_KEY = 'AIzaSyCTk12UgjiVgYufd8AiyVp_Quz1R-WtThE'
+// const API_KEY = 'AIzaSyCTk12UgjiVgYufd8AiyVp_Quz1R-WtThE'
 
 export function ShopsMap() {
     const position = { lat: 53.54992, lng: 10.00678 }
