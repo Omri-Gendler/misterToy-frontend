@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import '../assets/style/cmps/AppHeader.css'
+import { UserMsg } from "./UserMsg"
 
 
 export function AppHeader() {
@@ -14,6 +15,7 @@ export function AppHeader() {
                 <NavLink to="/dashboard" className="header-container__link">Dashboard</NavLink>
                 {/* <NavLink to="/shops" className="header-container__link">Shops</NavLink> */}
             </nav>
+            <UserMsg />
         </section>
     )
 }

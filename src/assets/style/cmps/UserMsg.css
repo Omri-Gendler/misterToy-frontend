@@ -1,25 +1,52 @@
 .user-msg {
-    background-color: lightgray;
-    padding: .5em 1em;
     position: fixed;
-    bottom: 1em;
-    right: 1em;
-    color: white;
-    font-weight: bold;
-    border: 3px solid black;
-    border-radius: 2px;
+    bottom: 2em;
+    right: 2em;
+    min-width: 250px;
+    max-width: 350px;
+    padding: 1em 1.5em;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    animation: fadeIn 0.3s;
 }
 
 .user-msg.success {
-    background-color: var(--clr1);
+    background-color: #43a047; /* Green */
+    border-left: 8px solid #2e7031;
 }
 
 .user-msg.error {
-    background-color: var(--clr2);
+    background-color: #e53935; /* Red */
+    border-left: 8px solid #a02725;
 }
 
+.user-msg p {
+    margin: 0;
+    flex: 1;
+}
 
-.user-msg button{
-    float: right;
-    margin: 1em;
+.user-msg button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 0.5em;
+    transition: color 0.2s;
+}
+
+.user-msg button:hover {
+    color: #ddd;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
 }

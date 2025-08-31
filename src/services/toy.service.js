@@ -1,5 +1,7 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
+import { showErrorMsg, showSuccessMsg } from './event-bus.service.js'
+import '../assets/style/cmps/UserMsg.css'
 // Removed import of removeTodo action to prevent circular dependency
 
 const TOY_KEY = 'toyDB'
@@ -45,12 +47,23 @@ function get(toyId) {
     return storageService.get(TOY_KEY, toyId)
         .then(toy => {
             toy = _setNextPrevTodoId(toy)
+            showSuccessMsg('Toy loaded successfully')
             return toy
+        })
+        .catch(err => {
+            showErrorMsg('Cannot load toy')
         })
 }
 
 function remove(toyId) {
     return storageService.remove(TOY_KEY, toyId)
+        .then(() => {
+            showSuccessMsg('Toy removed successfully')
+            console.log('Toy removed:', toyId)
+        })
+        .catch(err => {
+            showErrorMsg('Cannot remove toy')
+        })
 }
 
 function save(toy) {
@@ -58,10 +71,21 @@ function save(toy) {
     if (toy._id) {
         toy.updatedAt = Date.now()
         return storageService.put(TOY_KEY, toy)
+            .then(() => {
+                showSuccessMsg('Toy updated successfully')
+            })
+            .catch(err => {
+                showErrorMsg('Cannot update toy')
+            })
     } else {
         toy.createdAt = toy.updatedAt = Date.now()
-
         return storageService.post(TOY_KEY, toy)
+            .then(() => {
+                showSuccessMsg('Toy added successfully')
+            })
+            .catch(err => {
+                showErrorMsg('Cannot add toy')
+            })
     }
 }
 

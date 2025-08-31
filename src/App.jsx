@@ -8,6 +8,7 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { ShopsMap } from './pages/ShopsMap.jsx'
+import { UserMsg } from './cmps/UserMsg.jsx'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           {/* <Route path="/shops" element={<ShopsMap />} /> */}
         </Routes>
       </Provider>
+      <UserMsg />
     </HashRouter>
   )
 }
