@@ -12,7 +12,7 @@ export function AppHeader() {
                 <NavLink to="/" className="header-container__link">Home</NavLink>
                 <NavLink to="/toy" className="header-container__link">Toys</NavLink>
                 <NavLink to="/dashboard" className="header-container__link">Dashboard</NavLink>
-                <NavLink to="/shops" className="header-container__link">Shops</NavLink>
+                {/* <NavLink to="/shops" className="header-container__link">Shops</NavLink> */}
             </nav>
         </section>
     )

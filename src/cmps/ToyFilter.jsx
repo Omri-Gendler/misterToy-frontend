@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 
 
@@ -14,15 +14,18 @@ export function ToyFilter({ onSetFilter, labels }) {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            onSetFilter(filterBy)
+        }, 400) 
 
+        return () => clearTimeout(timer)
+    }, [filterBy.name, filterBy.labels]) 
 
     function handleChange(ev) {
         const { name, value } = ev.target
         const newFilter = { ...filterBy, [name]: value }
         setFilterBy(newFilter)
-        if (name === 'labels') {
-            onSetFilter(newFilter)
-        }
     }
 
     function handleSubmit(ev) {

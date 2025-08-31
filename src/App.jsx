@@ -20,7 +20,7 @@ export default function App() {
           <Route path="/toy/:id" element={<ToyDetails />} />
           <Route path="/toy/edit/:id?" element={<ToyEdit />} />
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/shops" element={<ShopsMap />} />
+          {/* <Route path="/shops" element={<ShopsMap />} /> */}
         </Routes>
       </Provider>
     </HashRouter>
