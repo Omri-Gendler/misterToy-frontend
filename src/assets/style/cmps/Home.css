@@ -12,6 +12,8 @@
     .home-logo {
         display: block;
         margin: 20px auto;
+        background: radial-gradient(circle, #3f4cf8 20%, transparent 80%);
+        border-radius: 50%;
+        box-shadow: 0 4px 30px rgba(63, 76, 248, 5);
     }
 }
-
