@@ -33,7 +33,7 @@
             transform: translate(-50%, -50%);
             width: 120px;
             height: 60px;
-            background: radial-gradient(circle, #3f4cf8 60%, transparent 100%);
+            background: radial-gradient(circle, #3f4cf8 1%, transparent 80%);
             opacity: 0;
             transition: opacity 0.5s;
             z-index: -1;
