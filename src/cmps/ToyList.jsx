@@ -14,17 +14,21 @@ export function ToyList({ toys, onRemoveToy, onEditToy }) {
     return (
         <ul className="toy-list">
             {toys.map(toy => (
-                <div className="toy-list li" key={toy._id}>
-                    <li className="toy-list" key={toy.id}>
-                        <h3 className="toy-card h3">{toy.name}</h3>
-                        <img className="img" onClick={() => navigate(`/toy/${toy._id}`)} src={toy.imgUrl} alt={toy.name} />
-                        <p>Price: {toy.price}</p>
-                        <p>Type: {toy.type}</p>
-                        <p>In Stock: {toy.inStock ? 'Yes' : 'No'}</p>
-                        <p>Labels:{toy.labels}</p>
-                        <button className="toy-card button"
-                            onClick={() => navigate(`/toy/edit/${toy._id}`)}>Edit</button>
-                        <button className="toy-card button" onClick={() => onRemoveToy(toy._id)}>Remove</button>
+                <div key={toy._id}>
+                    <li className="toy-card">
+                        <h3 className="toy-card header">{toy.name}</h3>
+                        <img className="toy-img" onClick={() => navigate(`/toy/${toy._id}`)} src={toy.imgUrl} alt={toy.name} />
+                        <div className="toy-card-body">
+                            <div className="toy-info">
+                                <div>price: {toy.price}</div>
+                                <div>type: {toy.type}</div>
+                            </div>
+                            <div className="toy-card-actions">
+                                <button className="toy-card button"
+                                    onClick={() => navigate(`/toy/edit/${toy._id}`)}>Edit</button>
+                                <button className="toy-card button" onClick={() => onRemoveToy(toy._id)}>Remove</button>
+                            </div>
+                        </div>
                     </li>
                 </div>
             ))}

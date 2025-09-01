@@ -1,20 +1,54 @@
 .toy-list {
-    padding: 15px 0 0;
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
+    padding: 15px 0 0;
+
 }
 
-.toy-list li {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background-color: var(--clr1bg);
+.toy-card.header {
+    justify-self: center;
 }
+
+.toy-card-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5em;
+    background: #22223b;
+    color: #fff;
+    padding: 0.7em 0.5em;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    font-size: 1em;
+}
+
+.toy-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5em;
+    background: none;
+    font-size: 0.95em;
+}
+
+.toy-list li {}
 
 .img {
     max-width: 100%;
-    height: auto;
+    /* height: auto; */
+}
+
+.toy-card {
+    background-color: var(--clr2bg);
+    width: fit-content;
+}
+
+.toy-card button {
+    background-color: black;
+    width: fit-content;
+}
+
+.toy-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

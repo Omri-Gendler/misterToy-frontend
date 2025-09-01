@@ -1,5 +1,6 @@
 import { BarChart } from '@mui/x-charts'
 import { PieChart } from '@mui/x-charts/PieChart'
+import { AppHeader } from './AppHeader'
 
 export function Dashboard({ toys }) {
     // Aggregate price per label
@@ -43,6 +44,7 @@ export function Dashboard({ toys }) {
 
     return (
         <div>
+            {/* <AppHeader /> */}
             <PieChart
                 series={[
                     {
