@@ -5,7 +5,7 @@
 }
 .toy-details h1 {
     color: var(--clr1);
-    font-size: 2em;
+    /* font-size: 2em; */
     
 }
 .toy-details h5 {

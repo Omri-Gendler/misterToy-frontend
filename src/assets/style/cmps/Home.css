@@ -1,12 +1,13 @@
 .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
 
     .home-description {
         text-align: center;
         max-width: 600px;
+    }
+
+    .home-title {
+        justify-self: center;
     }
 
     .home-logo {
@@ -15,6 +16,8 @@
         background: radial-gradient(circle, #3f4cf8 20%, transparent 80%);
         border-radius: 50%;
         box-shadow: 0 4px 30px rgba(63, 76, 248, 5);
+        max-height: 238px;
+        max-width: 212px;
     }
 
     .shop-now-button {
@@ -33,5 +36,9 @@
     .shop-now-button:hover {
         background: radial-gradient(circle, #3f4cf8 30%, transparent 80%);
         box-shadow: 0 4px 60px rgba(63, 76, 248, 5);
+    }
+
+    .home-description{
+        justify-self: center;
     }
 }

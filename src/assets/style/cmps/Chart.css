@@ -24,7 +24,7 @@
       display: block;
       background: rgba(209, 236, 250, 0.75);
       animation: draw 1s ease-in-out;
-      font-size: .8em;
+      /* font-size: .8em; */
   }
 
   .chart span:before {

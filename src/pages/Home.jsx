@@ -1,7 +1,8 @@
 import { AppHeader } from '../cmps/AppHeader'
-import '../assets/style/cmps/Home.css'
+import { Footer } from '../cmps/Footer'
 import { NavLink } from 'react-router-dom'
 
+import '../assets/style/cmps/Home.css'
 
 export function Home() {
     return (
@@ -22,6 +23,7 @@ export function Home() {
                     Shop Now
                 </button>
             </NavLink>
+            <Footer />
         </div>
     )
 }
