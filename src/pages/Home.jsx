@@ -1,5 +1,6 @@
 import { AppHeader } from '../cmps/AppHeader'
-import '../assets/style/cmps/Home.css' 
+import '../assets/style/cmps/Home.css'
+import { NavLink } from 'react-router-dom'
 
 
 export function Home() {
@@ -16,6 +17,11 @@ export function Home() {
             <p className="home-description">
                 Discover a world of fun and educational toys for children of all ages.
             </p>
+            <NavLink to="/toy">
+                <button className="shop-now-button">
+                    Shop Now
+                </button>
+            </NavLink>
         </div>
     )
 }

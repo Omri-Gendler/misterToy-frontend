@@ -16,4 +16,22 @@
         border-radius: 50%;
         box-shadow: 0 4px 30px rgba(63, 76, 248, 5);
     }
+
+    .shop-now-button {
+        display: block;
+        margin: 20px auto;
+        background-color: #12101d;
+        color: white;
+        border: 2px solid #3f4cf8;
+        border-radius: 25%;
+        box-shadow: 0 0 24px 8px white;
+        width: 200px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    .shop-now-button:hover {
+        background: radial-gradient(circle, #3f4cf8 30%, transparent 80%);
+        box-shadow: 0 4px 60px rgba(63, 76, 248, 5);
+    }
 }
