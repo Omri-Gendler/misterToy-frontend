@@ -10,6 +10,8 @@ import { DashboardPage } from './pages/DashboardPage.jsx'
 import { ShopsMap } from './pages/ShopsMap.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 
+import './assets/style/main.css'
+
 export default function App() {
   return (
     <HashRouter>
