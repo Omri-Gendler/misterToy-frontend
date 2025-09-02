@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router";
+import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from '@mui/icons-material/Edit';
 
 import '../assets/style/cmps/ToyList.css'
 
@@ -25,8 +27,8 @@ export function ToyList({ toys, onRemoveToy, onEditToy }) {
                             </div>
                             <div className="toy-card-actions">
                                 <button className="toy-card button"
-                                    onClick={() => navigate(`/toy/edit/${toy._id}`)}>Edit</button>
-                                <button className="toy-card button" onClick={() => onRemoveToy(toy._id)}>Remove</button>
+                                    onClick={() => navigate(`/toy/edit/${toy._id}`)}><EditIcon fontSize="small"/></button>
+                                <button className="toy-card button" onClick={() => onRemoveToy(toy._id)}><ClearIcon fontSize="small"/></button>
                             </div>
                         </div>
                     </li>

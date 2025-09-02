@@ -13,7 +13,7 @@ export function AppHeader() {
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/toy">Toys</NavLink>
                 <NavLink to="/dashboard">Dashboard</NavLink>
-                {/* <NavLink to="/shops">Shops</NavLink> */}
+                <NavLink to="/shops">Shops</NavLink>
             </nav>
             <UserMsg />
         </section>

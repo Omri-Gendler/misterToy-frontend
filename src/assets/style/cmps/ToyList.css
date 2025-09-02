@@ -1,23 +1,24 @@
 .toy-list {
-    list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 15px 0 0;
-
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    /* width: 75%; */
+    justify-self: center;
 }
 
 .toy-card.header {
     justify-self: center;
+    padding: 0;
+    margin: 0;
 }
 
 .toy-card-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.5em;
+    /* gap: 0.5em; */
     background: #22223b;
     color: #fff;
-    padding: 0.7em 0.5em;
+    /* padding: 0.7em 0.5em; */
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     font-size: 1em;
@@ -26,9 +27,10 @@
 .toy-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.5em;
+    /* gap: 0.5em; */
     background: none;
     font-size: 0.95em;
+    padding: 10px;
 }
 
 .toy-list li {}
@@ -40,15 +42,35 @@
 
 .toy-card {
     background-color: var(--clr2bg);
-    width: fit-content;
+    max-width: 70%;
+    border-radius: 10%;
+    padding: 4px;
 }
 
 .toy-card button {
-    background-color: black;
-    width: fit-content;
+    background-color: #22223b;
+    width: 0;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
+    :hover {
+        background-color: red;
+    }
 }
 
+
+
 .toy-card-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin: 0;
+    padding: 0.5em 0;
+}
+
+.toy-card {
+    background-color: #232876;
 }
