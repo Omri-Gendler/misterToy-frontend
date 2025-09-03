@@ -34,7 +34,7 @@ export function ToyFilter({ onSetFilter, labels }) {
     }
 
     return (
-        <div>
+        <div className="toy-filter">
 
             <form onSubmit={handleSubmit}>
                 <input type="text" name="name" value={filterBy.name} onChange={handleChange} placeholder="Search..." />
