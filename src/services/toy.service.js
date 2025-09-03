@@ -122,6 +122,10 @@ function _createToys() {
         '/toy.jpg.jpg',
         '/toy1.jpg.jpg'
     ]
+    // const toyImgs = [
+    //     '/toy.jpg.jpg',
+    //     '/toy1.jpg.jpg'
+    // ]
     let toys = JSON.parse(localStorage.getItem(TOY_KEY))
     if (!toys || !toys.length) {
         toys = [

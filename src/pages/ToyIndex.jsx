@@ -7,6 +7,7 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { ToyFilter } from "../cmps/ToyFilter.jsx";
 import { useNavigate } from "react-router"
 import { loadToys, removeToy, updateToy, setFilter } from "../stores/toy.actions.js";
+import Pagination from '@mui/material/Pagination';
 
 // import '../assets/css/pages/ToyIndex.css'
 

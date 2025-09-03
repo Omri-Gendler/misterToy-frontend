@@ -1,6 +1,7 @@
 import { toyService } from '../services/toy.service.js'
 import { SET_TOYS, ADD_TOY, REMOVE_TOY, UPDATE_TOY, SET_FILTER, SET_IS_LOADING } from '../reducers/toy.reducer.js'
 import { store } from './store.js'
+import swal from 'sweetalert2';
 
 export const toyActions = {
     loadToys,
