@@ -1,7 +1,8 @@
 import { toyService } from '../services/toy.service.js'
 import { SET_TOYS, ADD_TOY, REMOVE_TOY, UPDATE_TOY, SET_FILTER, SET_IS_LOADING } from '../reducers/toy.reducer.js'
 import { store } from './store.js'
-import swal from 'sweetalert2';
+import swal from 'sweetalert2'
+import { showErrorMsg } from '../services/event-bus.service.js'
 
 export const toyActions = {
     loadToys,
@@ -13,60 +14,71 @@ export const toyActions = {
 }
 
 
-export function loadToys(filterBy = {}) {
-    // const { filterBy, sortBy } = store.getState().toyModule
-
-
+export async function loadToys(filterBy = {}) {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-    return toyService.query(filterBy)
-        .then(toys => {
-            store.dispatch({ type: SET_TOYS, toys })
-        })
-        .catch(err => {
-            console.log('toy action -> Cannot load toys', err)
-            throw err
-        })
-        .finally(() => {
-            setTimeout(() => {
-                store.dispatch({ type: SET_IS_LOADING, isLoading: false })
-            }, 350)
-        })
+    try {
+        const toys = await toyService.query(filterBy)
+        store.dispatch({ type: SET_TOYS, toys })
+    } catch (err) {
+        console.log('toy action -> Cannot load toys', err)
+        throw err
+    } finally {
+        setTimeout(() => {
+            store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+        }, 350)
+    }
 }
 
-export function removeToy(toyId) {
-    toyService.remove(toyId)
-        .then(() => {
-            store.dispatch({ type: REMOVE_TOY, toyId })
+export async function removeToy(toyId) {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+    try {
+        const result = await swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
         })
-        .catch(err => {
-            console.error('Error removing toy:', err)
-        })
+        if (!result.isConfirmed) {
+            showErrorMsg('Deletion cancelled')
+            return;
+        }
+        await toyService.remove(toyId);
+        store.dispatch({ type: REMOVE_TOY, toyId })
+    }
+    catch (err) {
+        console.error('Error removing toy:', err)
+    } finally {
+        store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+    }
 }
 
-export function saveToy(toy) {
-    const type = toy._id ? UPDATE_TOY : ADD_TOY
-    return toyService.save(toy)
-        .then(savedToy => {
-            console.log('savedToy:', savedToy)
+export async function saveToy(toy) {
+    try {
+            const savedToy = await toyService.save(toy)
+            const type = toy._id ? UPDATE_TOY : ADD_TOY
             store.dispatch({ type, toy: savedToy })
+            if (!savedToy) throw new Error('Could not save toy')
             return savedToy
-        })
-        .catch(err => {
-            console.log('toy action -> Cannot save toy', err)
+        } catch (err) {
+            console.error('Error saving toy:', err)
             throw err
-        })
+        }
+
 }
 
 
-export function updateToy(toy) {
-    return toyService.save(toy)
-        .then((updatedToy) => {
-            store.dispatch({ type: UPDATE_TOY, toy: updatedToy })
-            return updatedToy
-        })
-        .catch(err => {
-            console.error('Error updating toy:', err)
-        })
+export async function updateToy(toy) {
+    try {
+        const updatedToy = await toyService.save(toy);
+        store.dispatch({ type: UPDATE_TOY, toy: updatedToy })
+        if (!updatedToy) throw new Error('Could not update toy')
+        return updatedToy
+    } catch (err) {
+        console.error('Error updating toy:', err)
+    }
 }
 
 export function addToy(toy) {
