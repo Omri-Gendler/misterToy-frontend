@@ -1,4 +1,53 @@
 .toy-filter {
+    width: 100%;
+    max-width: 831px;
     justify-self: center;
+    margin-top: 5px;
+    margin-bottom: 30px;
 }
 
+.search-input {
+    padding: 8px;
+    width: 180px;
+    height: 20px;
+    border: none;
+    border-radius: 6px;
+    justify-self: center;
+    grid-area: stock;
+}
+
+.toy-filter-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "search stock label clear";
+    gap: 12px;
+}
+
+.label-select {
+    padding: 8px;
+    width: 120px;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    justify-self: center;
+    grid-area: clear;
+    width: 33%;
+}
+
+.stock-select {
+    padding: 8px;
+    width: 120px;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    justify-self: center;
+    grid-area: clear;
+    width: 33%;
+    justify-self: end;
+}
+
+.clear-button{
+    grid-area: clear;
+    width: 33%;
+}

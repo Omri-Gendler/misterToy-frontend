@@ -36,15 +36,14 @@ export function ToyFilter({ onSetFilter, labels }) {
     return (
         <div className="toy-filter">
 
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" value={filterBy.name} onChange={handleChange} placeholder="Search..." />
-                <select name="inStock" value={filterBy.inStock} onChange={handleChange}>
-                    <option value="0">On Stock</option>
-                    <option value="1">Off Stock</option>
-                    <option value="2">All</option>
+            <form className='toy-filter-form' onSubmit={handleSubmit}>
+                <input className='search-input' type="text" name="name" value={filterBy.name} onChange={handleChange} placeholder="Search..." />
+                <select className='stock-select' name="inStock" value={filterBy.inStock} onChange={handleChange}>
+                    <option value="0">In Stock</option>
+                    <option value="1">Out of Stock</option>
                 </select>
 
-                <Select style={{ maxWidth: 100, maxHeight: 40, marginRight: 10, marginLeft: 10, backgroundColor: 'rgb(59, 59, 59)' }}
+                <Select className='label-select' style={{ maxWidth: 100, maxHeight: 40, marginRight: 10, marginLeft: 10, backgroundColor: 'rgb(59, 59, 59)' }}
                     name="labels"
                     value={filterBy.labels}
                     onChange={handleChange}
@@ -62,8 +61,7 @@ export function ToyFilter({ onSetFilter, labels }) {
                         <option key={label} value={label}>{label}</option>
                     ))}
                 </select> */}
-                <button>Apply Filter</button>
-                <button onClick={() => setFilterBy({ name: '', importance: 0, labels: '' })}>Clear</button>
+                <button className='clear-button' onClick={() => setFilterBy({ name: '', importance: 0, labels: '' })}>Clear</button>
             </form>
         </div>
     )

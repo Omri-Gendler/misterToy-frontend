@@ -52,8 +52,6 @@ export function ToyIndex() {
         <div className="toy-index">
             <AppHeader />
             <ToyFilter onSetFilter={onSetFilter} labels={labels} />
-            <ToyList toys={toysToShow} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
-
             <div className="pagination">
                 <button
                     disabled={currPage === 1}
@@ -69,6 +67,8 @@ export function ToyIndex() {
                     Next
                 </button>
             </div>
+            <ToyList toys={toysToShow} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
+
         </div>
     )
 }
