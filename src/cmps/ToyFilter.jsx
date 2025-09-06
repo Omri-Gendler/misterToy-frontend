@@ -17,10 +17,10 @@ export function ToyFilter({ onSetFilter, labels }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             onSetFilter(filterBy)
-        }, 400) 
+        }, 400)
 
         return () => clearTimeout(timer)
-    }, [filterBy]) 
+    }, [filterBy])
 
     function handleChange(ev) {
         const { name, value } = ev.target
@@ -59,8 +59,8 @@ export function ToyFilter({ onSetFilter, labels }) {
                     <option value="">Select Label</option>
                     {labels.map(label => (
                         <option key={label} value={label}>{label}</option>
-                    ))}
-                </select> */}
+                        ))}
+                        </select> */}
                 <button className='clear-button' onClick={() => setFilterBy({ name: '', importance: 0, labels: '', inStock: '' })}>Clear</button>
             </form>
         </div>

@@ -1,0 +1,29 @@
+.toy-index {
+  display: grid;
+  overflow: visible;
+}
+
+.toy-index .loader-container {
+  align-self: center;
+}
+
+.toy-details span {
+  font-weight: 400;
+}
+
+.pagination {
+  display: flex;
+}
+
+.add-toy {
+  margin-left: auto;
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.add-toy:hover {
+  background-color: #1565c0;
+}

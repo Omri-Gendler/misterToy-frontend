@@ -7,10 +7,9 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { ToyFilter } from "../cmps/ToyFilter.jsx";
 import { useNavigate } from "react-router"
 import { loadToys, removeToy, updateToy, setFilter } from "../stores/toy.actions.js";
-import Pagination from '@mui/material/Pagination';
+import { NavLink } from "react-router-dom";
 
-// import '../assets/css/pages/ToyIndex.css'
-
+import '../assets/style/cmps/ToyIndex.css'
 
 export function ToyIndex() {
 
@@ -66,6 +65,9 @@ export function ToyIndex() {
                 >
                     Next
                 </button>
+                
+                <NavLink className="add-toy" to="/add">Add Toy</NavLink>
+
             </div>
             <ToyList toys={toysToShow} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
 

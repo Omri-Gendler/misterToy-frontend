@@ -17,6 +17,7 @@
 @import '../style/cmps/FancyBox.css';
 @import '../style/cmps/SplitPane.css';
 
+@import '../style/cmps/ToyIndex.css';
 @import '../style/cmps/ToyFilter.css';
 @import '../style/cmps/ToyList.css';
 @import '../style/cmps/ToyPreview.css';
@@ -24,3 +25,4 @@
 @import '../style/cmps/ToyEdit.css';
 @import '../style/cmps/Footer.css';
 @import '../style/cmps/Dashboard.css';
+

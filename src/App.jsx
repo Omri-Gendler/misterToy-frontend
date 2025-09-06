@@ -9,6 +9,7 @@ import { ToyEdit } from './pages/ToyEdit.jsx'
 import { Dashboard } from './cmps/Dashboard.jsx'
 import { ShopsMap } from './pages/ShopsMap.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
+import { AddToy } from './cmps/AddToy.jsx'
 
 import './assets/style/main.css'
 
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/toy/:id" element={<ToyDetails />} />
           <Route path="/toy/edit/:id?" element={<ToyEdit />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add" element={<AddToy />} />
           <Route path="/shops" element={<ShopsMap />} />
         </Routes>
       </Provider>

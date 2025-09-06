@@ -82,7 +82,7 @@ export async function updateToy(toy) {
 }
 
 export function addToy(toy) {
-    toyService.post(toy)
+    toyService.save(toy)
         .then((newToy) => {
             store.dispatch({ type: ADD_TOY, toy: newToy })
         })
