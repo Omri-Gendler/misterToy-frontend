@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
-    /* width: 75%; */
+    width: 75%;
     justify-self: center;
 }
 
@@ -45,6 +45,7 @@
     max-width: 70%;
     border-radius: 10%;
     padding: 4px;
+    max-width: 320px;
 }
 
 .toy-card button {
