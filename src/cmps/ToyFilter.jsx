@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router'
 
 
 export function ToyFilter({ onSetFilter, labels }) {
-    const [filterBy, setFilterBy] = useState({ name: '', importance: 0, labels: '' })
+    const [filterBy, setFilterBy] = useState({ name: '', importance: 0, labels: '', inStock: '' })
 
     const navigate = useNavigate()
 
@@ -20,7 +20,7 @@ export function ToyFilter({ onSetFilter, labels }) {
         }, 400) 
 
         return () => clearTimeout(timer)
-    }, [filterBy.name, filterBy.labels]) 
+    }, [filterBy]) 
 
     function handleChange(ev) {
         const { name, value } = ev.target
@@ -61,7 +61,7 @@ export function ToyFilter({ onSetFilter, labels }) {
                         <option key={label} value={label}>{label}</option>
                     ))}
                 </select> */}
-                <button className='clear-button' onClick={() => setFilterBy({ name: '', importance: 0, labels: '' })}>Clear</button>
+                <button className='clear-button' onClick={() => setFilterBy({ name: '', importance: 0, labels: '', inStock: '' })}>Clear</button>
             </form>
         </div>
     )

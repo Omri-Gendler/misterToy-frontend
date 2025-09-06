@@ -6,7 +6,7 @@ import { Home } from './pages/Home.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
-import { DashboardPage } from './pages/DashboardPage.jsx'
+import { Dashboard } from './cmps/Dashboard.jsx'
 import { ShopsMap } from './pages/ShopsMap.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 
@@ -22,7 +22,7 @@ export default function App() {
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/toy/:id" element={<ToyDetails />} />
           <Route path="/toy/edit/:id?" element={<ToyEdit />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shops" element={<ShopsMap />} />
         </Routes>
       </Provider>

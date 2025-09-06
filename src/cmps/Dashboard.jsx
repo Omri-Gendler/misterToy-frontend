@@ -1,10 +1,21 @@
 import { BarChart } from '@mui/x-charts'
 import { PieChart } from '@mui/x-charts/PieChart'
 import { AppHeader } from './AppHeader'
+import { useSelector } from 'react-redux'
 
-export function Dashboard({ toys }) {
-    // Aggregate price per label
+import '../assets/style/cmps/Dashboard.css'
+import { useEffect } from 'react'
+import { loadToys } from '../stores/toy.actions'
+
+export function Dashboard() {
+
     const pricePerLabel = {}
+    const toys = useSelector(state => state.toyModule.toys)
+
+    useEffect(() => {
+        loadToys()
+    }, [])
+
     toys.forEach(toy => {
         if (Array.isArray(toy.labels)) {
             toy.labels.forEach(label => {
@@ -44,7 +55,7 @@ export function Dashboard({ toys }) {
 
     return (
         <div>
-            {/* <AppHeader /> */}
+            <AppHeader />
             <PieChart
                 series={[
                     {
@@ -54,13 +65,6 @@ export function Dashboard({ toys }) {
                 width={400}
                 height={300}
             />
-
-            <BarChart
-                xAxis={[{ data: labels, scaleType: 'band', label: 'Label' }]}
-                series={[{ data: percentages, label: '% In Stock' }]}
-                height={300}
-            />        </div>
+        </div>
     )
-
-
 }
