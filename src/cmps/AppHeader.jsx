@@ -1,10 +1,19 @@
-import { NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
+import { authService } from '../services/auth.service'
 import '../assets/style/cmps/AppHeader.css'
 import { UserMsg } from "./UserMsg"
 
 const logo = '/logo2.svg'
 
-export function AppHeader() {
+export function AppHeader({ loggedInUser, setLoggedInUser }) {
+    const navigate = useNavigate()
+
+    async function onLogout() {
+        await authService.logout()
+        setLoggedInUser(null)
+        navigate('/')
+    }
+
     return (
         <section className="header-container">
             <header>
@@ -16,6 +25,20 @@ export function AppHeader() {
                 <NavLink to="/dashboard">Dashboard</NavLink>
                 <NavLink to="/shops">Shops</NavLink>
             </nav>
+            <div style={{ float: 'right' }}>
+                {loggedInUser ? (
+                    <button onClick={onLogout}>Logout ({loggedInUser.username})</button>
+                ) : (
+                    <>
+                        <Link to="/login">
+                            <button>Login</button>
+                        </Link>
+                        <Link to="/signup">
+                            <button>Signup</button>
+                        </Link>
+                    </>
+                )}
+            </div>
             <UserMsg />
         </section>
     )
