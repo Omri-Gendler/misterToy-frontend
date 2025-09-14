@@ -14,6 +14,7 @@ import { AddToy } from './cmps/AddToy.jsx'
 import { LoginPage } from './pages/LoginPage'
 import { SignupPage } from './pages/SignupPage'
 import { authService } from './services/auth.service.js'
+import { AppHeader } from './cmps/AppHeader'
 
 import './assets/style/main.css'
 
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <HashRouter>
       <Provider store={store}>
+        <AppHeader loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/toy" element={<ToyIndex />} />

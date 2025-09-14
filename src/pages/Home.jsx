@@ -7,7 +7,7 @@ import '../assets/style/cmps/Home.css'
 export function Home() {
     return (
         <div className="home">
-            <AppHeader />
+            {/* <AppHeader /> */}
             <h1 className="home-title">Welcome to the Toy Store</h1>
             <img className="home-logo"
                 src="/home-logo.png"
