@@ -26,7 +26,7 @@ export function ShopsMap() {
 
     return (
         <div>
-            <AppHeader />
+            {/* <AppHeader /> */}
             <h1>Shops Map</h1>
             <APIProvider apiKey={API_KEY}>
                 <Map

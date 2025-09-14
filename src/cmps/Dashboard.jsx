@@ -55,7 +55,7 @@ export function Dashboard() {
 
     return (
         <div>
-            <AppHeader />
+            {/* <AppHeader /> */}
             <PieChart
                 series={[
                     {

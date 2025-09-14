@@ -49,7 +49,7 @@ export function ToyIndex() {
 
     return (
         <div className="toy-index">
-            <AppHeader />
+            {/* <AppHeader /> */}
             <ToyFilter onSetFilter={onSetFilter} labels={labels} />
             <div className="pagination">
                 <button

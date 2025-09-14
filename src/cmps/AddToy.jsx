@@ -4,6 +4,7 @@ import * as yup from 'yup'
 import { useState } from "react";
 import '../assets/style/cmps/AddToy.css'
 import { addToy, loadToys } from "../stores/toy.actions";
+import { useSelector } from 'react-redux'
 
 const schema = yup.object({
     name: yup.string().required('Name is required'),
@@ -11,7 +12,7 @@ const schema = yup.object({
     type: yup.string().required('Type is required'),
 });
 
-export function AddToy() {
+export function AddToy({ loggedInUser }) {
     const navigate = useNavigate()
     const [error, setError] = useState('')
 
@@ -26,7 +27,7 @@ export function AddToy() {
 
         try {
             await schema.validate(formData)
-            await addToy(formData)
+            await onAddToy(formData)
             await loadToys()
             navigate('/toy')
         } catch (err) {
@@ -34,9 +35,19 @@ export function AddToy() {
         }
     }
 
+    async function onAddToy(toyData) {
+        const toyToSave = {
+            ...toyData,
+            owner: loggedInUser._id,
+        }
+        await addToy(toyToSave)
+    }
+
+    if (!loggedInUser) return <div>Please log in to add a toy.</div>
+
     return (
         <div className="add-toy-page">
-            <AppHeader />
+            {/* <AppHeader /> */}
             <form onSubmit={handleSubmit} className="add-toy-form">
                 {error && <div style={{ color: 'red', marginBottom: 10 }}>{error}</div>}
                 <input type="text" name="name" placeholder="Toy Name" />
