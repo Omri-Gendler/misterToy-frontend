@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate, useParams } from "react-router"
+import { Navigate, useNavigate, useParams } from "react-router"
 import { saveToy, updateToy } from "../stores/toy.actions.js"
 import { Chat } from "../cmps/Chat.jsx"
 import { AppHeader } from "../cmps/AppHeader.jsx"
@@ -37,8 +37,13 @@ export function ToyEdit() {
     if (!toy) return <div>Loading...</div>
 
     // Only allow editing if the logged-in user is the owner
-    if (!loggedInUser || toy.owner !== loggedInUser._id) {
-        return <div>You are not authorized to edit this toy.</div>
+    if (!loggedInUser || toy.owner?._id !== loggedInUser._id) {
+        return (
+            <>
+                <button onClick={() => navigate('/toy')}>Back to Toy List</button>
+                <div>You are not authorized to edit this toy.</div>
+            </>
+        )
     }
 
     return (
