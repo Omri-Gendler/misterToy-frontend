@@ -5,7 +5,7 @@ import { Chat } from "../cmps/Chat.jsx"
 import { AppHeader } from "../cmps/AppHeader.jsx"
 import { PopUp } from "../cmps/PopUp.jsx"
 import { useEffect, useState } from "react"
-import { getToyById } from "../stores/toy.actions.js" // or your toyService
+import { toyService } from "../services/toy.service.js"
 
 
 export function ToyEdit() {
@@ -17,7 +17,7 @@ export function ToyEdit() {
 
     useEffect(() => {
         async function loadToy() {
-            const loadedToy = await getToyById(toyId) // or toyService.get(toyId)
+            const loadedToy = await toyService.get(toyId) // or toyService.get(toyId)
             setToy(loadedToy)
         }
         loadToy()
@@ -45,6 +45,10 @@ export function ToyEdit() {
         <div className="toy-edit">
             <AppHeader />
             <h2>Edit Toy</h2>
+            <div>
+                <strong>Owner:</strong>{" "}
+                {toy.owner?.fullname || toy.owner?.username || toy.owner}
+            </div>
             <form onSubmit={handleSubmit}>
                 <label>
                     Name:
