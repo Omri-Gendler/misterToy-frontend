@@ -1,195 +1,110 @@
-import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
-import { showErrorMsg, showSuccessMsg } from './event-bus.service.js'
-import '../assets/style/cmps/UserMsg.css'
-// Removed import of removeTodo action to prevent circular dependency
+import { httpService } from './http.service'
 
-const TOY_KEY = 'toyDB'
-_createToys()
+const BASE_URL = 'toy/'
 
 export const toyService = {
-    query,
-    get,
-    remove,
-    save,
-    getEmptyToy,
-    getDefaultFilter,
-    getFilterFromSearchParams,
-    getImportanceStats,
-    getLabels,
-}
-// For Debug (easy access from console):
-window.cs = toyService
-
-function query(filterBy = {}) {
-    return storageService.query(TOY_KEY)
-        .then(toys => {
-            if (filterBy.name) {
-                const regExp = new RegExp(filterBy.name, 'i')
-                toys = toys.filter(toy => regExp.test(toy.name))
-            }
-            if (filterBy.inStock && filterBy.inStock === '0') {
-                toys = toys.filter(toy => toy.inStock)
-            } else if (filterBy.inStock && filterBy.inStock === '1') {
-                toys = toys.filter(toy => !toy.inStock)
-            }
-            if (filterBy.labels && filterBy.labels.length) {
-                toys = toys.filter(toy => {
-                    return toy.labels.some(label => filterBy.labels.includes(label))
-                })
-            }
-            console.log('toys', toys)
-            return toys
-        })
+  query,
+  getById,
+  save,
+  remove,
+  getEmptyToy,
+  getDefaultFilter,
+  getToyLabels,
+  getLabelCounts,
+  addMsg,
+  removeMsg,
 }
 
-function get(toyId) {
-    return storageService.get(TOY_KEY, toyId)
-        .then(toy => {
-            toy = _setNextPrevTodoId(toy)
-            showSuccessMsg('Toy loaded successfully')
-            return toy
-        })
-        .catch(err => {
-            showErrorMsg('Cannot load toy')
-        })
+const labels = [
+  'On wheels',
+  'Box game',
+  'Art',
+  'Baby',
+  'Doll',
+  'Puzzle',
+  'Outdoor',
+  'Battery Powered',
+]
+
+async function query(filterBy = {}) {
+  return httpService.get(BASE_URL, filterBy)
 }
 
-function remove(toyId) {
-    return storageService.remove(TOY_KEY, toyId)
-        .then(() => {
-            showSuccessMsg('Toy removed successfully')
-            console.log('Toy removed:', toyId)
-        })
-        .catch(err => {
-            showErrorMsg('Cannot remove toy')
-        })
+async function getById(toyId) {
+  return httpService.get(BASE_URL + toyId)
 }
 
-function save(toy) {
-    if (!toy.labels) toy.labels = []
-    if (toy._id) {
-        toy.updatedAt = Date.now()
-        return storageService.put(TOY_KEY, toy)
-            .then(() => {
-                showSuccessMsg('Toy updated successfully')
-            })
-            .catch(err => {
-                showErrorMsg('Cannot update toy')
-            })
-    } else {
-        toy.createdAt = toy.updatedAt = Date.now()
-        return storageService.post(TOY_KEY, toy)
-            .then(() => {
-                showSuccessMsg('Toy added successfully')
-            })
-            .catch(err => {
-                showErrorMsg('Cannot add toy')
-            })
-    }
+async function remove(toyId) {
+  return httpService.delete(BASE_URL + toyId)
 }
 
-function getEmptyToy(txt = '', importance = 5, labels = []) {
-    return { txt, importance, isDone: false, labels }
+async function save(toy) {
+  const BASE_URL = toy._id ? `toy/${toy._id}` : 'toy/'
+  const method = toy._id ? 'put' : 'post'
+  return httpService[method](BASE_URL, toy)
+}
+
+async function addMsg(toyId, msg) {
+  return httpService.post(BASE_URL + `${toyId}/msg`, msg)
+}
+
+async function removeMsg(toyId, msgId) {
+  return httpService.delete(BASE_URL + `${toyId}/msg/${msgId}`)
 }
 
 function getDefaultFilter() {
-    return { txt: '', importance: 0 }
+  return {
+    txt: '',
+    inStock: null,
+    labels: [],
+    pageIdx: 0,
+    sortBy: { type: '', sortDir: 1 },
+  }
 }
 
-function getFilterFromSearchParams(searchParams) {
-    const defaultFilter = getDefaultFilter()
-    const filterBy = {}
-    for (const field in defaultFilter) {
-        filterBy[field] = searchParams.get(field) || ''
-    }
-    return filterBy
+function getEmptyToy() {
+  return {
+    name: '',
+    price: '',
+    labels: _getRandomLabels(),
+  }
 }
 
-
-function getImportanceStats() {
-    return storageService.query(TOY_KEY)
-        .then(toys => {
-            const toyCountByImportanceMap = _getTodoCountByImportanceMap(toys)
-            const data = Object.keys(toyCountByImportanceMap).map(speedName => ({ title: speedName, value: toyCountByImportanceMap[speedName] }))
-            return data
-        })
-
+function getToyLabels() {
+  return [...labels]
 }
 
-function _createToys() {
-    const toyImgs = [
-        '/toy.jpg.jpg',
-        '/toy1.jpg.jpg'
-    ]
-    // const toyImgs = [
-    //     '/toy.jpg.jpg',
-    //     '/toy1.jpg.jpg'
-    // ]
-    let toys = JSON.parse(localStorage.getItem(TOY_KEY))
-    if (!toys || !toys.length) {
-        toys = [
-            { _id: 't101', name: 'Lego', price: 120, type: 'Building', imgUrl: toyImgs[0], inStock: true, labels: ['classic', 'blocks'] },
-            { _id: 't102', name: 'Barbie', price: 80, type: 'Doll', imgUrl: toyImgs[1], inStock: false, labels: ['fashion', 'doll'] },
-            { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car', imgUrl: toyImgs[0], inStock: true, labels: ['car', 'racing'] },
-            { _id: 't104', name: 'Rubik\'s Cube', price: 40, type: 'Puzzle', imgUrl: toyImgs[1], inStock: true, labels: ['puzzle', 'classic'] },
-            { _id: 't105', name: 'Play-Doh', price: 30, type: 'Craft', imgUrl: toyImgs[0], inStock: false, labels: ['craft', 'kids'] },
-            { _id: 't106', name: 'Nerf Gun', price: 90, type: 'Action', imgUrl: toyImgs[1], inStock: true, labels: ['action', 'outdoor'] },
-            { _id: 't107', name: 'Monopoly', price: 60, type: 'Board Game', imgUrl: toyImgs[0], inStock: true, labels: ['board', 'family'] },
-            { _id: 't108', name: 'UNO', price: 25, type: 'Card Game', imgUrl: toyImgs[1], inStock: false, labels: ['card', 'family'] },
-            { _id: 't109', name: 'Transformers', price: 110, type: 'Action', imgUrl: toyImgs[0], inStock: true, labels: ['action', 'robot'] },
-            { _id: 't110', name: 'Jenga', price: 35, type: 'Board Game', imgUrl: toyImgs[1], inStock: true, labels: ['board', 'classic'] },
-        ]
-        localStorage.setItem(TOY_KEY, JSON.stringify(toys))
-    }
-}
-function _createToy(txt, importance) {
-    const toy = getEmptyToy(txt, importance)
-    toy._id = utilService.makeId()
-    toy.createdAt = toy.updatedAt = Date.now() - utilService.getRandomIntInclusive(0, 1000 * 60 * 60 * 24)
-    return toy
+function _getRandomLabels() {
+  const labelsCopy = [...labels]
+  const randomLabels = []
+  for (let i = 0; i < 2; i++) {
+    const randomIdx = Math.floor(Math.random() * labelsCopy.length)
+    randomLabels.push(labelsCopy.splice(randomIdx, 1)[0])
+  }
+  return randomLabels
 }
 
-function _setNextPrevTodoId(toy) {
-    return storageService.query(TOY_KEY).then((toys) => {
-        const todoIdx = toys.findIndex((currTodo) => currTodo._id === toy._id)
-        const nextToy = toys[todoIdx + 1] ? toys[todoIdx + 1] : toys[0]
-        const prevToy = toys[todoIdx - 1] ? toys[todoIdx - 1] : toys[toys.length - 1]
-        toy.nextToyId = nextToy._id
-        toy.prevToyId = prevToy._id
-        return toy
+async function getLabelCounts() {
+  try {
+    const { toys } = await query()
+    const labelCounts = {}
+    toys.forEach(toy => {
+      toy.labels.forEach(label => {
+        if (labelCounts[label]) {
+          labelCounts[label]++
+        } else {
+          labelCounts[label] = 1
+        }
+      })
     })
+    const labelCountArray = Object.entries(labelCounts).map(
+      ([label, count]) => ({
+        label,
+        count,
+      })
+    )
+    return labelCountArray
+  } catch (error) {
+    console.log('Could not get label count', error)
+  }
 }
-
-function _getToyCountByImportanceMap(toys) {
-    const toyCountByImportanceMap = toys.reduce((map, toy) => {
-        if (toy.importance < 3) map.low++
-        else if (toy.importance < 7) map.normal++
-        else map.urgent++
-        return map
-    }, { low: 0, normal: 0, urgent: 0 })
-    return toyCountByImportanceMap
-}
-
-function getLabels() {
-    const toys = JSON.parse(localStorage.getItem(TOY_KEY))
-    const labels = toys.reduce((acc, toy) => {
-        toy.labels.forEach(label => {
-            if (!acc.includes(label)) acc.push(label)
-        })
-        return acc
-    }, [])
-    return labels
-}
-
-
-// Data Model:
-// const toy = {
-//     _id: "gZ6Nvy",
-//     txt: "Master Redux",
-//     importance: 9,
-//     isDone: false,
-//     createdAt: 1711472269690,
-//     updatedAt: 1711472269690
-// }
-

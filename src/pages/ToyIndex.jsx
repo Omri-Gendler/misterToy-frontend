@@ -13,11 +13,11 @@ import '../assets/style/cmps/ToyIndex.css'
 
 export function ToyIndex() {
 
-    const toys = useSelector(state => state.toyModule.toys)
+    const toys = useSelector(state => state.toyModule.toys.toys || [])
     const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
     const navigate = useNavigate()
 
-    const labels = toyService.getLabels()
+    const labels = toyService.getToyLabels()
     console.log('Labels:', labels)
 
     const totalToys = toys.length
@@ -65,7 +65,7 @@ export function ToyIndex() {
                 >
                     Next
                 </button>
-                
+
                 <NavLink className="add-toy" to="/add">Add Toy</NavLink>
 
             </div>

@@ -37,7 +37,7 @@ export function ToyEdit() {
     if (!toy) return <div>Loading...</div>
 
     // Only allow editing if the logged-in user is the owner
-    if (!loggedInUser || toy.owner?._id !== loggedInUser._id) {
+    if (!loggedInUser || String(toy.owner?.username).trim() !== String(loggedInUser?.username).trim()) {
         return (
             <>
                 <button onClick={() => navigate('/toy')}>Back to Toy List</button>
@@ -45,6 +45,9 @@ export function ToyEdit() {
             </>
         )
     }
+    console.log('loggedInUser:', loggedInUser)
+    console.log('toy.owner:', toy.owner)
+    console.log('Comparison:', toy.owner?.username, loggedInUser?.username)
 
     return (
         <div className="toy-edit">
@@ -87,6 +90,10 @@ export function ToyEdit() {
                 <Chat />
             </PopUp>
             <button onClick={() => navigate('/toy')}>Back</button>
+            <div>
+                <div>loggedInUser.username: {String(loggedInUser?.username)}</div>
+                <div>toy.owner.username: {String(toy.owner?.username)}</div>
+            </div>
         </div>
     )
 }

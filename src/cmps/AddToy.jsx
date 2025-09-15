@@ -38,8 +38,13 @@ export function AddToy({ loggedInUser }) {
     async function onAddToy(toyData) {
         const toyToSave = {
             ...toyData,
-            owner: loggedInUser._id,
+            owner: {
+                _id: loggedInUser._id,
+                username: loggedInUser.username,
+                fullname: loggedInUser.fullname
+            },
         }
+        console.log('Adding toy:', toyToSave)
         await addToy(toyToSave)
     }
 
