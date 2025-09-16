@@ -6,11 +6,7 @@ export const SET_FILTER = 'SET_FILTER'
 export const SET_IS_LOADING = 'SET_IS_LOADING'
 
 const initialState = {
-    toys: [
-        { _id: 't101', name: 'Lego', price: 120, type: 'Building' },
-        { _id: 't102', name: 'Barbie', price: 80, type: 'Doll' },
-        { _id: 't103', name: 'Hot Wheels', price: 50, type: 'Car' }
-    ],
+    toys: [],
     filterBy: {
         txt: '',
     },

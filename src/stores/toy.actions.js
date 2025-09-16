@@ -17,7 +17,9 @@ export const toyActions = {
 export async function loadToys(filterBy = {}) {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     try {
-        const toys = await toyService.query(filterBy)
+        const response = await toyService.query(filterBy)
+        // Extract just the toys array from the response
+        const toys = response.toys || response // Handle both { toys: [...] } and [...] formats
         store.dispatch({ type: SET_TOYS, toys })
     } catch (err) {
         console.log('toy action -> Cannot load toys', err)

@@ -13,7 +13,7 @@ import '../assets/style/cmps/ToyIndex.css'
 
 export function ToyIndex() {
 
-    const toys = useSelector(state => state.toyModule.toys.toys || [])
+    const toys = useSelector(state => state.toyModule.toys || [])
     const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
     const navigate = useNavigate()
 

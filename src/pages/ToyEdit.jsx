@@ -17,7 +17,7 @@ export function ToyEdit() {
 
     useEffect(() => {
         async function loadToy() {
-            const loadedToy = await toyService.get(toyId) // or toyService.get(toyId)
+            const loadedToy = await toyService.getById(toyId) // or toyService.get(toyId)
             setToy(loadedToy)
         }
         loadToy()

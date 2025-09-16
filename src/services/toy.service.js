@@ -7,6 +7,7 @@ export const toyService = {
   getById,
   save,
   remove,
+  add,
   getEmptyToy,
   getDefaultFilter,
   getToyLabels,
@@ -23,7 +24,6 @@ const labels = [
   'Doll',
   'Puzzle',
   'Outdoor',
-  'Battery Powered',
 ]
 
 async function query(filterBy = {}) {
@@ -36,6 +36,10 @@ async function getById(toyId) {
 
 async function remove(toyId) {
   return httpService.delete(BASE_URL + toyId)
+}
+
+async function add(toy) {
+  return httpService.post(BASE_URL, toy, { withCredentials: true })
 }
 
 async function save(toy) {

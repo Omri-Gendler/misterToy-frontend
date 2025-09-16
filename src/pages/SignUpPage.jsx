@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { authService } from '../services/auth.service'
 
 export function SignupPage({ onSignup }) {
-  const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
+  const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '', isAdmin: true })
   const [error, setError] = useState('')
 
   function handleChange(ev) {
