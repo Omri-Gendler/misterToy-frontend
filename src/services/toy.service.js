@@ -26,7 +26,7 @@ const labels = [
   'Outdoor',
 ]
 async function query(filterBy = {}) {
-  return httpService.get(BASE_URL, filterBy)
+  return httpService.get(BASE_URL, filterBy, { withCredentials: true })
 }
 
 async function getById(toyId) {

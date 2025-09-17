@@ -7,6 +7,7 @@ import Select from '@mui/material/Select';
 
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { toyService } from '../services/toy.service.js'
 
 
 export function ToyFilter({ onSetFilter, labels }) {
@@ -33,6 +34,12 @@ export function ToyFilter({ onSetFilter, labels }) {
         onSetFilter(filterBy)
     }
 
+    function handleClear() {
+        setFilterBy({ name: '', importance: 0, labels: '', inStock: '' })
+        onSetFilter({ name: '', importance: 0, labels: '', inStock: '' })
+        navigate('/toy')
+    }
+
     return (
         <div className="toy-filter">
 
@@ -48,9 +55,9 @@ export function ToyFilter({ onSetFilter, labels }) {
                     value={filterBy.labels}
                     onChange={handleChange}
                 >
-                    {labels.map(label => (
+                    {/* {labels.map(label => (
                         <MenuItem key={label} value={label}>{label}</MenuItem>
-                    ))}
+                    ))} */}
                 </Select>
 
 
@@ -61,7 +68,7 @@ export function ToyFilter({ onSetFilter, labels }) {
                         <option key={label} value={label}>{label}</option>
                         ))}
                         </select> */}
-                <button className='clear-button' onClick={() => setFilterBy({ name: '', importance: 0, labels: '', inStock: '' })}>Clear</button>
+                <button className='clear-button' onClick={handleClear}>Clear</button>
             </form>
         </div>
     )

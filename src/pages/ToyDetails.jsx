@@ -4,7 +4,7 @@ import '../assets/style/cmps/ToyDetails.css'
 import { toyService } from "../services/toy.service.js"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { loadToys, removeToy, updateToy, setFilter } from "../stores/toy.actions.js";
+import { loadToys, updateToy, setFilter, removeToyOptimistic } from "../stores/toy.actions.js";
 import { useNavigate } from "react-router"
 const TOY_KEY = 'toyDB'
 
@@ -32,8 +32,7 @@ export function ToyDetails() {
 
     function onRemoveToy(toyId) {
         console.log('Removing toy:', toyId)
-        removeToy(toyId)
-        navigate('/toy')
+        removeToyOptimistic(toyId)
     }
 
     function onEditToy(toy) {

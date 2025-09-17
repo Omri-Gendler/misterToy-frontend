@@ -6,71 +6,66 @@ import { ToyList } from "../cmps/ToyList.jsx";
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { ToyFilter } from "../cmps/ToyFilter.jsx";
 import { useNavigate } from "react-router"
-import { loadToys, removeToy, updateToy, setFilter } from "../stores/toy.actions.js";
+import { loadToys, removeToyOptimistic, updateToy, setFilter } from "../stores/toy.actions.js";
 import { NavLink } from "react-router-dom";
 
 import '../assets/style/cmps/ToyIndex.css'
 
 export function ToyIndex() {
-
-    const toys = useSelector(state => state.toyModule.toys || [])
-    const [filterBy, setFilterBy] = useState({ name: '', inStock: 0 })
-    const navigate = useNavigate()
-
-    const labels = toyService.getToyLabels()
-    console.log('Labels:', labels)
-
-    const totalToys = toys.length
-    const toysPerPage = 5
-    const totalPages = Math.ceil(totalToys / toysPerPage)
-    const [currPage, setCurrPage] = useState(1)
+    const toys = useSelector(storeState => storeState.toyModule.toys)
+    const user = useSelector(storeState => storeState.userModule.loggedInUser)
+    const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
+    const maxPage = useSelector(storeState => storeState.toyModule.maxPage)
 
     useEffect(() => {
-        loadToys(filterBy)
+        fetchToys()
     }, [filterBy])
 
-    function onRemoveToy(toyId) {
-        removeToy(toyId)
+    async function fetchToys() {
+        try {
+            await loadToys()
+        } catch (error) {
+            showErrorMsg('Cannot load toys')
+        }
     }
 
-    function onEditToy(toy) {
-        updateToy(toy)
-        navigate(`/toy/edit/${toy._id}`)
+    async function onRemoveToy(toyId) {
+        try {
+            await removeToyOptimistic(toyId)
+            loadToys()
+            showSuccessMsg('Toy removed')
+        } catch (error) {
+            console.log('Cannot remove toy', error)
+            showErrorMsg('Cannot remove toy')
+        }
     }
 
     function onSetFilter(filterBy) {
-        setCurrPage(1)
-        setFilterBy(filterBy)
+        setFilter(filterBy)
     }
 
-    const startIdx = (currPage - 1) * toysPerPage
-    const endIdx = startIdx + toysPerPage
-    const toysToShow = toys.slice(startIdx, endIdx)
+    function onChangePageIdx(diff) {
+        let newPageIdx = +filterBy.pageIdx + diff
+        if (newPageIdx < 0) newPageIdx = maxPage - 1
+        if (newPageIdx >= maxPage) newPageIdx = 0
+        onSetFilter({ pageIdx: newPageIdx })
+    }
 
     return (
-        <div className="toy-index">
-            {/* <AppHeader /> */}
-            <ToyFilter onSetFilter={onSetFilter} labels={labels} />
-            <div className="pagination">
-                <button
-                    disabled={currPage === 1}
-                    onClick={() => setCurrPage(currPage - 1)}
-                >
-                    Prev
+        <section className="toy-index">
+            <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            {user && user.isAdmin && (
+                <button style={{ alignSelf: 'center' }}>
+                    <Link to="/toy/edit">Add Toy</Link>
                 </button>
-                <span>Page {currPage} of {totalPages}</span>
-                <button
-                    disabled={currPage === totalPages}
-                    onClick={() => setCurrPage(currPage + 1)}
-                >
-                    Next
-                </button>
-
-                <NavLink className="add-toy" to="/add">Add Toy</NavLink>
-
-            </div>
-            <ToyList toys={toysToShow} onRemoveToy={onRemoveToy} onEditToy={onEditToy} />
-
-        </div>
+            )}
+            <ToyList toys={toys} onRemoveToy={onRemoveToy} loggedInUser={user} />
+            {!!toys.length && maxPage > 1 && (
+                <PaginationButtons
+                    pageIdx={filterBy.pageIdx}
+                    onChangePageIdx={onChangePageIdx}
+                />
+            )}
+        </section>
     )
 }

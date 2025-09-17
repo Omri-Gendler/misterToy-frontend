@@ -6,7 +6,7 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 
 export const toyActions = {
     loadToys,
-    removeToy,
+    removeToyOptimistic,
     saveToy,
     updateToy,
     addToy,
@@ -15,10 +15,12 @@ export const toyActions = {
 
 
 export async function loadToys(filterBy = {}) {
+
+    const toys = await toyService.query(filterBy)
+
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     try {
         const response = await toyService.query(filterBy)
-        // Extract just the toys array from the response
         const toys = response.toys || response // Handle both { toys: [...] } and [...] formats
         store.dispatch({ type: SET_TOYS, toys })
     } catch (err) {
@@ -31,43 +33,44 @@ export async function loadToys(filterBy = {}) {
     }
 }
 
-export async function removeToy(toyId) {
-    store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+export async function removeToyOptimistic(toyId) {
+    const originalToys = store.getState().toyModule.toys
+
+    store.dispatch({ type: 'REMOVE_TOY', toyId })
+
     try {
-        const result = await swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        })
-        if (!result.isConfirmed) {
-            showErrorMsg('Deletion cancelled')
-            return;
-        }
-        await toyService.remove(toyId);
-        store.dispatch({ type: REMOVE_TOY, toyId })
+        await toyService.remove(toyId)
+
+        showSuccessMsg('Toy removed!')
+
+    } catch (err) {
+        console.error('Failed to remove toy, rolling back state', err)
+        showErrorMsg('Could not remove toy')
+        store.dispatch({ type: 'SET_TOYS', toys: originalToys })
     }
-    catch (err) {
-        console.error('Error removing toy:', err)
-    } finally {
-        store.dispatch({ type: SET_IS_LOADING, isLoading: false })
-    }
+}
+
+function showSuccessMsg(msg) {
+    swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: msg,
+        showConfirmButton: false,
+        timer: 1500
+    })
 }
 
 export async function saveToy(toy) {
     try {
-            const savedToy = await toyService.save(toy)
-            const type = toy._id ? UPDATE_TOY : ADD_TOY
-            store.dispatch({ type, toy: savedToy })
-            if (!savedToy) throw new Error('Could not save toy')
-            return savedToy
-        } catch (err) {
-            console.error('Error saving toy:', err)
-            throw err
-        }
+        const savedToy = await toyService.save(toy)
+        const type = toy._id ? UPDATE_TOY : ADD_TOY
+        store.dispatch({ type, toy: savedToy })
+        if (!savedToy) throw new Error('Could not save toy')
+        return savedToy
+    } catch (err) {
+        console.error('Error saving toy:', err)
+        throw err
+    }
 
 }
 
