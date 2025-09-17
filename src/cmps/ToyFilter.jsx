@@ -44,7 +44,15 @@ export function ToyFilter({ onSetFilter, labels }) {
         <div className="toy-filter">
 
             <form className='toy-filter-form' onSubmit={handleSubmit}>
-                <input className='search-input' type="text" name="name" value={filterBy.name} onChange={handleChange} placeholder="Search..." />
+                <label htmlFor="txt">Search:</label>
+                <input
+                    type="text"
+                    id="txt"
+                    name="txt" // ✨ חשוב מאוד: השם חייב להתאים לשם המפתח באובייקט
+                    placeholder="Search toys..."
+                    value={filterBy.txt} // ✨ קושרים את הערך ל-state
+                    onChange={handleChange} // ✨ קושרים את האירוע לפונקציה
+                />
                 <select className='stock-select' name="inStock" value={filterBy.inStock} onChange={handleChange}>
                     <option value="0">In Stock</option>
                     <option value="1">Out of Stock</option>

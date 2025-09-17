@@ -7,17 +7,21 @@ export const SET_IS_LOADING = 'SET_IS_LOADING'
 
 const initialState = {
     toys: [],
+    isLoading: false,
     filterBy: {
         txt: '',
+        inStock: null,
+        labels: [],
+        pageIdx: 0,
+        sortBy: { type: 'name', sortDir: 1 }
     },
-    user: null,
-    isLoading: false
+    maxPage: 0
 }
 
 export function AppReducer(state = initialState, cmd = {}) {
     switch (cmd.type) {
         case 'SET_TOYS':
-            return { ...state, toys: cmd.toys }
+            return { ...state, toys: cmd.data.toys, maxPage: cmd.data.maxPage }
         case 'ADD_TOY':
             return { ...state, toys: [...state.toys, cmd.toy] }
         case 'REMOVE_TOY':
@@ -30,7 +34,7 @@ export function AppReducer(state = initialState, cmd = {}) {
         case 'SET_IS_LOADING':
             return { ...state, isLoading: cmd.isLoading }
         case 'SET_FILTER':
-            return { ...state, filterBy: cmd.filterBy }
+            return { ...state, filterBy: { ...state.filterBy, ...cmd.filterBy } }
         default:
             return state
     }

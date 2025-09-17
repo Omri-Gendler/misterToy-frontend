@@ -8,6 +8,7 @@ import { ToyFilter } from "../cmps/ToyFilter.jsx";
 import { useNavigate } from "react-router"
 import { loadToys, removeToyOptimistic, updateToy, setFilter } from "../stores/toy.actions.js";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import '../assets/style/cmps/ToyIndex.css'
 
@@ -48,7 +49,8 @@ export function ToyIndex() {
         let newPageIdx = +filterBy.pageIdx + diff
         if (newPageIdx < 0) newPageIdx = maxPage - 1
         if (newPageIdx >= maxPage) newPageIdx = 0
-        onSetFilter({ pageIdx: newPageIdx })
+
+        onSetFilter({ ...filterBy, pageIdx: newPageIdx })
     }
 
     return (
@@ -60,12 +62,23 @@ export function ToyIndex() {
                 </button>
             )}
             <ToyList toys={toys} onRemoveToy={onRemoveToy} loggedInUser={user} />
-            {!!toys.length && maxPage > 1 && (
-                <PaginationButtons
-                    pageIdx={filterBy.pageIdx}
-                    onChangePageIdx={onChangePageIdx}
-                />
-            )}
+            {
+                <div className="pagination">
+                    <button
+                        onClick={() => onChangePageIdx(-1)}
+                        disabled={filterBy.pageIdx === 0}>
+                        Previous
+                    </button>
+
+                    <span>Page {filterBy.pageIdx + 1} of {maxPage || 1}</span>
+
+                    <button
+                        onClick={() => onChangePageIdx(1)}
+                        disabled={filterBy.pageIdx + 1 >= maxPage}>
+                        Next
+                    </button>
+                </div>
+            }
         </section>
     )
 }

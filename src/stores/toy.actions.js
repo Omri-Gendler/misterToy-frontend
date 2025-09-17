@@ -14,15 +14,20 @@ export const toyActions = {
 }
 
 
-export async function loadToys(filterBy = {}) {
+// frontend/src/stores/toy.actions.js
 
-    const toys = await toyService.query(filterBy)
-
+export async function loadToys() {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     try {
-        const response = await toyService.query(filterBy)
-        const toys = response.toys || response // Handle both { toys: [...] } and [...] formats
-        store.dispatch({ type: SET_TOYS, toys })
+        // ✨ שלב קריטי: קוראים את הפילטר העדכני ביותר ישירות מה-store
+        const filterBy = store.getState().toyModule.filterBy
+
+        console.log('Action is loading toys with filter:', filterBy) // נשאיר את זה לבדיקה
+
+        // שולחים את הפילטר שקיבלנו מה-store לסרוויס
+        const data = await toyService.query(filterBy)
+        store.dispatch({ type: SET_TOYS, data })
+
     } catch (err) {
         console.log('toy action -> Cannot load toys', err)
         throw err
@@ -32,7 +37,6 @@ export async function loadToys(filterBy = {}) {
         }, 350)
     }
 }
-
 export async function removeToyOptimistic(toyId) {
     const originalToys = store.getState().toyModule.toys
 
