@@ -25,7 +25,6 @@ const labels = [
   'Puzzle',
   'Outdoor',
 ]
-
 async function query(filterBy = {}) {
   return httpService.get(BASE_URL, filterBy)
 }
