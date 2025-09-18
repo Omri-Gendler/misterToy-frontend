@@ -11,7 +11,8 @@ import { toyService } from '../services/toy.service.js'
 
 
 export function ToyFilter({ onSetFilter, labels }) {
-    const [filterBy, setFilterBy] = useState({ name: '', importance: 0, labels: '', inStock: '' })
+    const [filterBy, setFilterBy] = useState({ name: '', importance: 0, labels: [], inStock: '' })
+    console.log('labels', labels)
 
     const navigate = useNavigate()
 
@@ -48,10 +49,10 @@ export function ToyFilter({ onSetFilter, labels }) {
                 <input
                     type="text"
                     id="txt"
-                    name="txt" // ✨ חשוב מאוד: השם חייב להתאים לשם המפתח באובייקט
+                    name="txt"
                     placeholder="Search toys..."
-                    value={filterBy.txt} // ✨ קושרים את הערך ל-state
-                    onChange={handleChange} // ✨ קושרים את האירוע לפונקציה
+                    value={filterBy.txt}
+                    onChange={handleChange}
                 />
                 <select className='stock-select' name="inStock" value={filterBy.inStock} onChange={handleChange}>
                     <option value="0">In Stock</option>
@@ -63,9 +64,10 @@ export function ToyFilter({ onSetFilter, labels }) {
                     value={filterBy.labels}
                     onChange={handleChange}
                 >
-                    {/* {labels.map(label => (
+                    <MenuItem value="">Select Label</MenuItem>
+                    {labels.map(label => (
                         <MenuItem key={label} value={label}>{label}</MenuItem>
-                    ))} */}
+                    ))}
                 </Select>
 
 

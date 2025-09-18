@@ -18,9 +18,23 @@ export function ToyIndex() {
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
     const maxPage = useSelector(storeState => storeState.toyModule.maxPage)
 
+    const [availableLabels, setAvailableLabels] = useState([])
+
     useEffect(() => {
         fetchToys()
     }, [filterBy])
+
+    useEffect(() => {
+        async function loadLabels() {
+            try {
+                const labels = await toyService.getToyLabels()
+                setAvailableLabels(labels)
+            } catch (error) {
+                showErrorMsg('Cannot load labels')
+            }
+        }
+        loadLabels()
+    }, [])
 
     async function fetchToys() {
         try {
@@ -55,7 +69,7 @@ export function ToyIndex() {
 
     return (
         <section className="toy-index">
-            <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} labels={availableLabels} />
             {user && user.isAdmin && (
                 <button style={{ alignSelf: 'center' }}>
                     <Link to="/toy/edit">Add Toy</Link>
