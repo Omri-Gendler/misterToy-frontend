@@ -86,9 +86,6 @@ export function ToyIndex() {
     return (
         <section className="toy-index">
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} labels={availableLabels} />
-            <button style={{ alignSelf: 'center' }} onClick={() => navigate("/add")}>
-                Add Toy
-            </button>
             {isAddOpen && (
                 <AddToy onSaved={handleToyAdded} onCancel={() => setIsAddOpen(false)} />
             )}

@@ -12,6 +12,8 @@ const schema = yup.object({
     type: yup.string().required('Type is required'),
 });
 
+const DEFAULT_IMG = '/logo.jpg.jpg'
+
 export function AddToy({ loggedInUser }) {
     const navigate = useNavigate()
     const [error, setError] = useState('')
@@ -19,10 +21,10 @@ export function AddToy({ loggedInUser }) {
     async function handleSubmit(ev) {
         ev.preventDefault()
         const formData = {
-            name: ev.target.name.value,
-            price: ev.target.price.value,
+            name: ev.target.name.value.trim(),
+            price: Number(ev.target.price.value),
             type: ev.target.type.value,
-            imgUrl: '/toy.jpg.jpg'
+            imgUrl: ev.target.imgUrl.value.trim() || DEFAULT_IMG
         }
 
         try {
@@ -38,11 +40,11 @@ export function AddToy({ loggedInUser }) {
     async function onAddToy(toyData) {
         const toyToSave = {
             ...toyData,
-            owner: {
+            owner: loggedInUser ? {
                 _id: loggedInUser._id,
                 username: loggedInUser.username,
-                fullname: loggedInUser.fullname
-            },
+                fullname: loggedInUser.fullname,
+            } : undefined,
         }
         console.log('Adding toy:', toyToSave)
         await addToy(toyToSave)
@@ -60,7 +62,9 @@ export function AddToy({ loggedInUser }) {
                     <option value="inStock">In Stock</option>
                     <option value="outOfStock">Out of Stock</option>
                 </select>
+                <input type="text" name="imgUrl" placeholder="Image URL" />
                 <button type="submit" >Add Toy</button>
+                <button type="button" onClick={() => navigate(-1)}>Cancel</button>
             </form>
         </div>
     )

@@ -44,8 +44,13 @@ export function ToyFilter({ onSetFilter, labels }) {
     return (
         <div className="toy-filter">
 
+            <button style={{ alignSelf: 'center' }} onClick={() => navigate("/add")}>
+                Add Toy
+            </button>
+
+
             <form className='toy-filter-form' onSubmit={handleSubmit}>
-                <label htmlFor="txt">Search:</label>
+                <label htmlFor="txt"></label>
                 <input
                     type="text"
                     id="txt"
