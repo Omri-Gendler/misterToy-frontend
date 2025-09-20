@@ -36,8 +36,8 @@ export function ToyEdit() {
 
     if (!toy) return <div>Loading...</div>
 
-    // Only allow editing if the logged-in user is the owner
-    if (!loggedInUser || String(toy.owner?.username).trim() !== String(loggedInUser?.username).trim()) {
+
+    if (!loggedInUser || toy.owner?._id !== loggedInUser?._id) {
         return (
             <>
                 <button onClick={() => navigate('/toy')}>Back to Toy List</button>

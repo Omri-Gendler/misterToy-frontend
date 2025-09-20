@@ -12,7 +12,7 @@ const schema = yup.object({
     type: yup.string().required('Type is required'),
 });
 
-const DEFAULT_IMG = '/logo.jpg.jpg'
+const DEFAULT_IMG = '/toy.jpg.jpg'
 
 export function AddToy({ loggedInUser }) {
     const navigate = useNavigate()
