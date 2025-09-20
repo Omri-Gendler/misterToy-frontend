@@ -32,7 +32,14 @@ export default function App() {
           <Route path="/toy/:id" element={<ToyDetails />} />
           <Route path="/toy/edit/:id?" element={<ToyEdit />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add" element={<AddToy loggedInUser={loggedInUser} />} />
+          <Route
+            path="/add"
+            element={
+              loggedInUser
+                ? <AddToy loggedInUser={loggedInUser} />
+                : <Navigate to="/login" replace />
+            }
+          />
           <Route path="/login" element={
             loggedInUser ? <Navigate to="/" replace /> :
             <LoginPage onLogin={(user)=> setLoggedInUser(user)} />

@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import '../assets/style/cmps/ToyIndex.css'
+import { AddToy } from "../cmps/AddToy.jsx";
 
 export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
@@ -19,6 +20,9 @@ export function ToyIndex() {
     const maxPage = useSelector(storeState => storeState.toyModule.maxPage)
 
     const [availableLabels, setAvailableLabels] = useState([])
+    const [isAddOpen, setIsAddOpen] = useState(false)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchToys()
@@ -67,13 +71,26 @@ export function ToyIndex() {
         onSetFilter({ ...filterBy, pageIdx: newPageIdx })
     }
 
+    async function handleToyAdded(newToy) {
+        try {
+            // If you have a save action/service, call it here, then:
+            await loadToys()
+            showSuccessMsg('Toy added')
+        } catch (err) {
+            showErrorMsg('Cannot add toy')
+        } finally {
+            setIsAddOpen(false)
+        }
+    }
+
     return (
         <section className="toy-index">
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} labels={availableLabels} />
-            {user && user.isAdmin && (
-                <button style={{ alignSelf: 'center' }}>
-                    <Link to="/toy/edit">Add Toy</Link>
-                </button>
+            <button style={{ alignSelf: 'center' }} onClick={() => navigate("/add")}>
+                Add Toy
+            </button>
+            {isAddOpen && (
+                <AddToy onSaved={handleToyAdded} onCancel={() => setIsAddOpen(false)} />
             )}
             <ToyList toys={toys} onRemoveToy={onRemoveToy} loggedInUser={user} />
             {

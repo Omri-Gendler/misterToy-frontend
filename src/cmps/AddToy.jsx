@@ -48,11 +48,9 @@ export function AddToy({ loggedInUser }) {
         await addToy(toyToSave)
     }
 
-    if (!loggedInUser) return <div>Please log in to add a toy.</div>
 
     return (
         <div className="add-toy-page">
-            {/* <AppHeader /> */}
             <form onSubmit={handleSubmit} className="add-toy-form">
                 {error && <div style={{ color: 'red', marginBottom: 10 }}>{error}</div>}
                 <input type="text" name="name" placeholder="Toy Name" />
@@ -62,7 +60,7 @@ export function AddToy({ loggedInUser }) {
                     <option value="inStock">In Stock</option>
                     <option value="outOfStock">Out of Stock</option>
                 </select>
-                <button type="submit">Add Toy</button>
+                <button type="submit" >Add Toy</button>
             </form>
         </div>
     )
