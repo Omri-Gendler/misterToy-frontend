@@ -43,7 +43,6 @@ export function ToyDetails() {
 
     return (
         <div className="toy-details">
-            <AppHeader />
             <div className="toy-details__content">
                 <img className="toy-details img" src={currToy.imgUrl} alt="" />
                 <p>{currToy.name}</p>

@@ -25,27 +25,20 @@ const labels = [
   'Puzzle',
   'Outdoor',
 ]
-// בקובץ: frontend/src/services/toy.service.js
 
 async function query(filterBy = {}) {
-  // ניצור עותק של הפילטרים כדי לא לשנות את האובייקט המקורי ב-store
   const paramsToBuild = { ...filterBy }
 
-  // 1. נטפל ידנית באובייקט המיון המקונן
   if (paramsToBuild.sortBy) {
-    // נהפוך את { sortBy: { type: 'name', dir: 1 } }
-    // ל- { 'sortBy[type]': 'name', 'sortBy[dir]': 1 }
     paramsToBuild['sortBy[type]'] = paramsToBuild.sortBy.type
     paramsToBuild['sortBy[sortDir]'] = paramsToBuild.sortBy.sortDir
-    delete paramsToBuild.sortBy // נמחק את המפתח המקורי כדי למנוע כפילות
+    delete paramsToBuild.sortBy 
   }
 
-  // 2. עכשיו ניתן ל-URLSearchParams לעשות את שאר העבודה על אובייקט "שטוח"
   const params = new URLSearchParams(paramsToBuild)
   const queryString = params.toString()
   const finalUrl = `${BASE_URL}?${queryString}`
 
-  // 3. (חשוב!) נוסיף console.log כדי לראות את ה-URL הסופי לפני השליחה
   console.log('Service is sending request to URL:', finalUrl)
 
   return httpService.get(finalUrl, null, { withCredentials: true })

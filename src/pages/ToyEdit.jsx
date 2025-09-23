@@ -22,6 +22,7 @@ export function ToyEdit() {
         }
         loadToy()
     }, [toyId])
+    console.log('Loaded toy:', toy)
 
     async function handleSubmit(ev) {
         ev.preventDefault()
@@ -32,12 +33,13 @@ export function ToyEdit() {
         await updateToy({ _id: toyId, name, price, type })
         console.log('Form submitted with:', { id: toyId, name, price, type })
         await navigate(`/toy`)
+        UserMsg.success('Toy updated successfully!')
     }
 
     if (!toy) return <div>Loading...</div>
 
 
-    if (!loggedInUser || toy.owner?._id !== loggedInUser?._id) {
+    if (toy.owner?.username !== loggedInUser?.username) {
         return (
             <>
                 <button onClick={() => navigate('/toy')}>Back to Toy List</button>
@@ -45,13 +47,9 @@ export function ToyEdit() {
             </>
         )
     }
-    console.log('loggedInUser:', loggedInUser)
-    console.log('toy.owner:', toy.owner)
-    console.log('Comparison:', toy.owner?.username, loggedInUser?.username)
 
     return (
         <div className="toy-edit">
-            <AppHeader />
             <h2>Edit Toy</h2>
             <div>
                 <strong>Owner:</strong>{" "}
@@ -90,10 +88,6 @@ export function ToyEdit() {
                 <Chat />
             </PopUp>
             <button onClick={() => navigate('/toy')}>Back</button>
-            <div>
-                <div>loggedInUser.username: {String(loggedInUser?.username)}</div>
-                <div>toy.owner.username: {String(toy.owner?.username)}</div>
-            </div>
         </div>
     )
 }
