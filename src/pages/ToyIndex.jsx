@@ -15,6 +15,7 @@ import { AddToy } from "../cmps/AddToy.jsx";
 
 export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
+    console.log('Toys:', toys)
     const user = useSelector(storeState => storeState.userModule.loggedInUser)
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
     const maxPage = useSelector(storeState => storeState.toyModule.maxPage)

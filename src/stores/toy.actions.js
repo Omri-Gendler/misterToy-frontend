@@ -84,9 +84,11 @@ export async function updateToy(toy) {
         const updatedToy = await toyService.save(toy);
         store.dispatch({ type: UPDATE_TOY, toy: updatedToy })
         if (!updatedToy) throw new Error('Could not update toy')
+        showSuccessMsg('Toy updated successfully!')
         return updatedToy
     } catch (err) {
         console.error('Error updating toy:', err)
+        showErrorMsg('Could not update toy')
     }
 }
 
